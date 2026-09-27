@@ -305,6 +305,18 @@ function renderJobs(filterType = "ALL", searchQuery = "") {
     });
 }
 
+// Global Company Filter function for "Hiring Now" tags
+window.filterByCompany = function(companyName) {
+    if (searchInput) {
+        searchInput.value = companyName;
+    }
+    renderJobs("ALL", companyName);
+    const jobsSection = document.getElementById('jobs');
+    if (jobsSection) {
+        jobsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+};
+
 // ==========================================
 // 6. APPLY JOB MODAL HANDLERS
 // ==========================================
