@@ -190,60 +190,53 @@ body {
     font-size: 13px;
 }
 
-/* Graphic Card */
+/* Screenshot Matching Preview Cards Stack */
 .hero-graphic {
     flex: 0.8;
     display: flex;
-    justify-content: center;
-    position: relative;
+    flex-direction: column;
+    align-items: center;
 }
 
-.graphic-card {
-    background: linear-gradient(135deg, #1e293b, #0f172a);
+.preview-cards-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    max-width: 320px;
+}
+
+.preview-mini-card {
+    background: linear-gradient(135deg, #1e293b, #111827);
     border: 1px solid #334155;
-    width: 280px;
-    height: 280px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+.mini-avatar {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+    font-weight: bold;
+    color: #fff;
+    font-size: 16px;
 }
 
-.main-icon {
-    font-size: 80px;
-    color: #818cf8;
+.mini-info h4 {
+    font-size: 14px;
+    color: #f8fafc;
 }
 
-.hiring-badge {
-    position: absolute;
-    top: 20px;
-    right: -20px;
-    background-color: #1e1b4b;
-    border: 1px solid #6366f1;
-    color: #a5b4fc;
-    padding: 6px 14px;
-    border-radius: 20px;
+.mini-info p {
     font-size: 12px;
-}
-
-.floating-badge {
-    position: absolute;
-    bottom: 20px;
-    left: -30px;
-    background-color: #0f172a;
-    border: 1px solid #334155;
-    padding: 10px 16px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 12px;
-}
-
-.floating-badge i {
-    color: #10b981;
-    font-size: 18px;
+    color: #94a3b8;
 }
 
 /* Stats Banner */
@@ -545,6 +538,61 @@ body {
     margin-top: 12px;
     font-size: 12px;
     color: #94a3b8;
+}
+
+/* Screenshot Matching Bottom Banner Section */
+.banner-section {
+    padding: 40px 24px 60px;
+    background-color: #0b1120;
+}
+
+.custom-promo-box {
+    background: linear-gradient(135deg, #1e1b4b, #1e293b);
+    border: 1px solid #3b82f6;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+}
+
+.custom-promo-box h2 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.custom-promo-box p {
+    color: #94a3b8;
+    font-size: 15px;
+    max-width: 600px;
+    margin: 0 auto 24px;
+}
+
+.promo-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.btn-primary-glow {
+    background-color: #2563eb;
+    color: #ffffff;
+    padding: 10px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 0 15px rgba(37, 99, 235, 0.5);
+}
+
+.btn-secondary-outline {
+    background-color: transparent;
+    border: 1px solid #475569;
+    color: #f1f5f9;
+    padding: 10px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
 }
 
 /* Modal Styling */
