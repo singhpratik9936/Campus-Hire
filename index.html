@@ -1,75 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampusHire - MCA Placement & Internship Portal</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusHire - MCA Placement & Internship Portal</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="bg-slate-950 text-slate-100 antialiased font-sans selection:bg-indigo-500 selection:text-white">
 
-    <!-- Header / Navbar -->
-    <header class="navbar">
-        <div class="logo">CampusHire <span>MCA Portal</span></div>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Jobs</a>
-            <a href="#">Internships</a>
-            <a href="#">Companies</a>
-            <a href="#">About</a>
-        </nav>
-        <div class="auth-btns">
-            <button id="loginBtn" onclick="openModal('login')">Login</button>
-            <button id="registerBtn" onclick="openModal('register')">Register</button>
+  <!-- Floating Toast Notification -->
+  <div id="toast" class="fixed top-6 right-6 z-50 flex items-center gap-3 bg-indigo-600 text-white px-5 py-3.5 rounded-2xl shadow-2xl transition-all duration-300 opacity-0 pointer-events-none transform translate-y-[-10px] border border-indigo-400/30">
+    <i class="fa-solid font-bold text-lg" id="toast-icon"></i>
+    <span id="toast-msg" class="text-sm font-medium">Notification Message</span>
+  </div>
+
+  <!-- Glass Navbar -->
+  <header class="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-xl border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 bg-gradient-to-tr from-indigo-600 to-violet-500 text-white rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-300">
+          <i class="fa-solid fa-graduation-cap"></i>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Your Career Starts Here</h1>
-            <p>Connect with top companies, explore internships, find your dream job and build a better future.</p>
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search jobs, internships, companies...">
-                <button onclick="searchJobs()">Search</button>
-            </div>
+        <div>
+          <span class="text-2xl font-black tracking-tight text-white">Campus<span class="text-indigo-400">Hire</span></span>
+          <span class="block text-[10px] font-bold text-indigo-400 uppercase tracking-widest -mt-1">MCA Placement Portal</span>
         </div>
-    </section>
+      </a>
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="stat-card"><h3>500+</h3><p>Active Posts</p></div>
-        <div class="stat-card"><h3>200+</h3><p>Registered Companies</p></div>
-        <div class="stat-card"><h3>5000+</h3><p>MCA Students</p></div>
-        <div class="stat-card"><h3>95%</h3><p>Placement Success Rate</p></div>
-    </section>
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
+        <a href="#hero" class="text-indigo-400 transition">Home</a>
+        <a href="#jobs" class="hover:text-indigo-400 transition">Jobs & Internships</a>
+        <a href="#stats" class="hover:text-indigo-400 transition">Overview</a>
+        <a href="#" class="hover:text-indigo-400 transition">Companies</a>
+      </nav>
 
-    <!-- Job Listings Section -->
-    <section class="jobs-container">
-        <h2>Available Jobs & Internships</h2>
-        <div id="jobList" class="job-list">
-            <!-- Firebase se Data Yahan Dynamically Load Hoga -->
+      <!-- User Profile & Action -->
+      <div class="flex items-center gap-4">
+        <div class="hidden sm:flex items-center gap-3 bg-slate-800/60 border border-slate-700/50 px-3.5 py-1.5 rounded-full">
+          <div class="w-7 h-7 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-xs font-bold text-white">
+            P
+          </div>
+          <span class="text-xs font-medium text-slate-300" id="user-email">singhpratik9936@gmail.com</span>
         </div>
-    </section>
+        <button id="logout-btn" class="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 font-semibold text-xs px-4 py-2.5 rounded-xl transition-all duration-200 flex items-center gap-2">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+      </div>
 
-    <!-- Auth Modal (Login/Register) -->
-    <div id="authModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2 id="modalTitle">Login to Your Account</h2>
-            
-            <form id="authForm">
-                <div id="nameField" style="display:none;">
-                    <input type="text" id="fullName" placeholder="Full Name">
-                </div>
-                <input type="email" id="email" placeholder="Email Address" required>
-                <input type="password" id="password" placeholder="Password" required>
-                <button type="submit" id="submitAuthBtn">Submit</button>
-            </form>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative overflow-hidden pt-16 pb-20 px-6">
+    <!-- Glowing Background Blurs -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-indigo-600/20 rounded-full blur-[140px] pointer-events-none"></div>
+    <div class="absolute top-1/3 right-10 w-[300px] h-[300px] bg-purple-600/15 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+      <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 px-4 py-1.5 rounded-full text-indigo-300 text-xs font-semibold mb-6 backdrop-blur-md">
+        <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+        MCA Placement Drive 2026 Active
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight mb-6">
+        Build Your Tech Career With <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Top Opportunities</span>
+      </h1>
+      
+      <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto font-normal mb-10 leading-relaxed">
+        Connect with leading tech giants, discover curated MCA internships, and land your dream software engineering role.
+      </p>
+
+      <!-- Search & Filter Box -->
+      <div class="max-w-3xl mx-auto bg-slate-900/90 border border-slate-800 p-2.5 rounded-2xl shadow-2xl backdrop-blur-md">
+        <div class="flex flex-col sm:flex-row items-center gap-2">
+          
+          <div class="flex-1 flex items-center px-4 w-full gap-3 text-slate-400">
+            <i class="fa-solid fa-magnifying-glass text-indigo-400 text-lg"></i>
+            <input type="text" id="search-input" placeholder="Search role, skills, or company (e.g. TCS, Developer)..." class="w-full py-3 bg-transparent text-white placeholder-slate-500 focus:outline-none text-sm">
+          </div>
+
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <select id="type-filter" class="bg-slate-800 border border-slate-700/80 text-slate-300 text-xs rounded-xl px-3 py-3.5 focus:outline-none cursor-pointer w-1/2 sm:w-auto">
+              <option value="ALL">All Types</option>
+              <option value="Full-Time">Full-Time</option>
+              <option value="Internship">Internship</option>
+            </select>
+
+            <button id="search-btn" class="w-1/2 sm:w-auto bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold px-6 py-3.5 rounded-xl transition-all shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 text-sm">
+              <span>Search</span>
+            </button>
+          </div>
+
         </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Key Metrics / Stats -->
+  <section id="stats" class="max-w-6xl mx-auto px-6 mb-16">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-slate-900/50 border border-slate-800/80 p-6 rounded-3xl backdrop-blur-sm">
+      <div class="text-center p-3">
+        <h3 class="text-3xl font-extrabold text-white">500+</h3>
+        <p class="text-xs font-medium text-slate-400 mt-1">Active Job Posts</p>
+      </div>
+      <div class="text-center p-3 border-l border-slate-800">
+        <h3 class="text-3xl font-extrabold text-white">200+</h3>
+        <p class="text-xs font-medium text-slate-400 mt-1">Hiring Companies</p>
+      </div>
+      <div class="text-center p-3 border-l border-slate-800">
+        <h3 class="text-3xl font-extrabold text-white">5,000+</h3>
+        <p class="text-xs font-medium text-slate-400 mt-1">MCA Candidates</p>
+      </div>
+      <div class="text-center p-3 border-l border-slate-800">
+        <h3 class="text-3xl font-extrabold text-indigo-400">95%</h3>
+        <p class="text-xs font-medium text-slate-400 mt-1">Success Rate</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Job Listings Section -->
+  <section id="jobs" class="max-w-7xl mx-auto px-6 pb-24">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <div>
+        <h2 class="text-2xl font-bold text-white tracking-tight">Available Jobs & Internships</h2>
+        <p class="text-xs text-slate-400 mt-1">Explore handpicked technical positions for MCA graduates</p>
+      </div>
+
+      <!-- Quick Tag Filters -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0" id="category-pills">
+        <button class="pill-btn active" data-cat="ALL">All Roles</button>
+        <button class="pill-btn" data-cat="Software">Software</button>
+        <button class="pill-btn" data-cat="Data">Data & AI</button>
+        <button class="pill-btn" data-cat="Cloud">Cloud & DevOps</button>
+      </div>
     </div>
 
-    <!-- Firebase SDK Setup -->
-    <script type="module" src="app.js"></script>
+    <!-- Dynamic Jobs Container -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="jobs-grid">
+      <!-- Cards rendered dynamically via app.js -->
+    </div>
+  </section>
+
+  <!-- Application Modal Popup -->
+  <div id="apply-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-slate-900 border border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl transform scale-95 transition-transform duration-300 relative">
+      <button id="close-modal-btn" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center font-bold">
+          <i class="fa-solid fa-paper-plane"></i>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-white">Apply for Role</h3>
+          <p class="text-xs text-slate-400" id="modal-company">Company Name</p>
+        </div>
+      </div>
+
+      <form id="apply-form" class="space-y-4 mt-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1.5">Applying As</label>
+          <input type="email" value="singhpratik9936@gmail.com" readonly class="w-full bg-slate-800/80 border border-slate-700/70 rounded-xl px-3.5 py-2.5 text-sm text-slate-300 focus:outline-none cursor-not-allowed">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1.5">Full Name</label>
+          <input type="text" required placeholder="Pratik Singh" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-indigo-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1.5">Portfolio / Resume Link</label>
+          <input type="url" required placeholder="https://github.com/singhpratik9936" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-indigo-500 focus:outline-none">
+        </div>
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-xl transition shadow-lg shadow-indigo-600/30 text-sm mt-2">
+          Submit Application
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript File -->
+  <script src="app.js"></script>
 </body>
 </html>
