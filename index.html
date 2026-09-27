@@ -29,7 +29,8 @@
                 <li><a href="#about">About</a></li>
             </ul>
             <div class="nav-buttons">
-                <!-- Dynamically updated by app.js -->
+                <button class="btn-login">Login</button>
+                <button class="btn-register">Register</button>
             </div>
         </div>
     </nav>
@@ -60,29 +61,13 @@
                 </div>
             </div>
 
-            <!-- Placed Students Cards Preview -->
             <div class="hero-graphic">
-                <div class="preview-cards-stack">
-                    <div class="preview-mini-card">
-                        <div class="mini-avatar" style="background:#2563eb;">P</div>
-                        <div class="mini-info">
-                            <h4>Pratik Singh</h4>
-                            <p>System Engineer @ TCS</p>
-                        </div>
-                    </div>
-                    <div class="preview-mini-card">
-                        <div class="mini-avatar" style="background:#9333ea;">A</div>
-                        <div class="mini-info">
-                            <h4>Ananya Sharma</h4>
-                            <p>SDE Intern @ Infosys</p>
-                        </div>
-                    </div>
-                    <div class="preview-mini-card">
-                        <div class="mini-avatar" style="background:#059669;">R</div>
-                        <div class="mini-info">
-                            <h4>Rohit Kumar</h4>
-                            <p>Frontend Dev @ Wipro</p>
-                        </div>
+                <div class="graphic-card">
+                    <i class="fa-solid fa-user-graduate main-icon"></i>
+                    <span class="hiring-badge"><i class="fa-solid fa-bolt"></i> TCS Hiring 2026</span>
+                    <div class="floating-badge">
+                        <i class="fa-solid fa-award"></i>
+                        <span><strong>47 Placed</strong> This Week</span>
                     </div>
                 </div>
             </div>
@@ -219,74 +204,61 @@
         </div>
     </section>
 
-    <!-- Middle Banner Section -->
-    <section class="banner-section">
+    <!-- Recently Placed Students Cards Section -->
+    <section class="students-placed-section" style="padding: 40px 24px;">
         <div class="section-container">
-            <div class="custom-promo-box">
-                <h2>Build Your Future With CampusHire</h2>
-                <p>Join thousands of MCA students already getting placed. Start your career journey today — completely free.</p>
-                <div class="promo-buttons">
-                    <a href="#jobs" class="btn-primary-glow"><i class="fa-solid fa-rocket"></i> Get Started Free</a>
-                    <a href="#jobs" class="btn-secondary-outline">Browse Jobs</a>
+            <div class="placed-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                
+                <!-- Candidate 1 -->
+                <div class="placed-card" style="background: #1e293b; border: 1px solid #334155; padding: 18px 20px; border-radius: 12px; display: flex; align-items: center; gap: 16px;">
+                    <div style="width: 42px; height: 42px; border-radius: 50%; background: #2563eb; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 18px;">P</div>
+                    <div>
+                        <h4 style="color: #ffffff; font-size: 15px; font-weight: 600; margin: 0;">Pratik Singh</h4>
+                        <p style="color: #94a3b8; font-size: 12px; margin-top: 2px;">System Engineer @ TCS</p>
+                    </div>
                 </div>
+
+                <!-- Candidate 2 (Riya Patel) -->
+                <div class="placed-card" style="background: #1e293b; border: 1px solid #334155; padding: 18px 20px; border-radius: 12px; display: flex; align-items: center; gap: 16px;">
+                    <div style="width: 42px; height: 42px; border-radius: 50%; background: #9333ea; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 18px;">R</div>
+                    <div>
+                        <h4 style="color: #ffffff; font-size: 15px; font-weight: 600; margin: 0;">Riya Patel</h4>
+                        <p style="color: #94a3b8; font-size: 12px; margin-top: 2px;">SDE Intern @ Infosys</p>
+                    </div>
+                </div>
+
+                <!-- Candidate 3 -->
+                <div class="placed-card" style="background: #1e293b; border: 1px solid #334155; padding: 18px 20px; border-radius: 12px; display: flex; align-items: center; gap: 16px;">
+                    <div style="width: 42px; height: 42px; border-radius: 50%; background: #059669; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 18px;">R</div>
+                    <div>
+                        <h4 style="color: #ffffff; font-size: 15px; font-weight: 600; margin: 0;">Rohit Kumar</h4>
+                        <p style="color: #94a3b8; font-size: 12px; margin-top: 2px;">Frontend Dev @ Wipro</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- FOOTER SECTION (Screenshot Match) -->
-    <footer id="about" class="footer">
-        <div class="footer-container">
-            <div class="footer-grid">
-                <!-- Column 1: Brand Info -->
-                <div class="footer-col brand-col">
-                    <div class="brand">
-                        <i class="fa-solid fa-graduation-cap logo-icon"></i>
-                        <h3 class="footer-brand-title">CampusHire</h3>
-                    </div>
-                    <p class="footer-desc">
-                        Dedicated placement & internship portal for MCA students across top Indian universities.
-                    </p>
-                </div>
-
-                <!-- Column 2: Quick Links -->
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#jobs">Explore Jobs</a></li>
-                        <li><a href="#jobs">Internships</a></li>
-                        <li><a href="#companies">Top Companies</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: For Students -->
-                <div class="footer-col">
-                    <h4>For Students</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Resume Builder</a></li>
-                        <li><a href="#">MCA Interview Prep</a></li>
-                        <li><a href="#">Placement Drive Updates</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Contact Support -->
-                <div class="footer-col">
-                    <h4>Contact Support</h4>
-                    <p class="support-text">Need help with your application?</p>
-                    <a href="mailto:support@campushire.in" class="support-email">support@campushire.in</a>
-                </div>
-            </div>
-
-            <!-- Footer Bottom Line -->
-            <div class="footer-bottom">
-                <p>&copy; 2026 CampusHire Inc. All rights reserved.</p>
-                <div class="footer-socials">
-                    <a href="#" aria-label="Github"><i class="fa-brands fa-github"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+    <!-- Build Your Future Banner (Bottom Call-to-Action) -->
+    <section class="cta-banner-section" style="padding: 20px 24px 60px;">
+        <div class="section-container">
+            <div style="background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%); border: 1px solid #312e81; border-radius: 20px; padding: 50px 20px; text-align: center;">
+                <h2 style="font-size: 32px; font-weight: 800; color: #ffffff; margin-bottom: 12px;">Build Your Future With CampusHire</h2>
+                <p style="color: #94a3b8; font-size: 15px; max-width: 600px; margin: 0 auto 28px; line-height: 1.5;">
+                    Join thousands of MCA students already getting placed. Start your career journey today — completely free.
+                </p>
+                <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+                    <button style="background: #3b82f6; color: #ffffff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-paper-plane" style="font-size: 12px;"></i> Get Started Free
+                    </button>
+                    <button style="background: #1e293b; color: #ffffff; border: 1px solid #334155; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px;">
+                        Browse Jobs
+                    </button>
                 </div>
             </div>
         </div>
-    </footer>
+    </section>
 
     <!-- Application Modal -->
     <div class="modal-overlay" id="applicationModal">
