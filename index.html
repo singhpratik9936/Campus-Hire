@@ -29,8 +29,8 @@
                 <li><a href="#about">About</a></li>
             </ul>
             <div class="nav-buttons">
-                <button class="btn-login">Login</button>
-                <button class="btn-register">Register</button>
+                <button class="btn-login" onclick="openGeneralModal('login')">Login</button>
+                <button class="btn-register" onclick="openGeneralModal('register')">Register</button>
             </div>
         </div>
     </nav>
@@ -73,7 +73,7 @@
             </div>
         </div>
 
-        <!-- Quick Stats Banner (Clickable Cards) -->
+        <!-- Quick Stats Banner (Clickable) -->
         <div class="stats-banner">
             <div class="stat-item" onclick="openStatModal('jobs')" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                 <h3>500+</h3>
@@ -279,10 +279,12 @@
                     Join thousands of MCA students already getting placed. Start your career journey today — completely free.
                 </p>
                 <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-                    <button style="background: #3b82f6; color: #ffffff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;">
+                    <!-- Get Started Free Button with click event -->
+                    <button onclick="openGeneralModal('getStarted')" style="background: #3b82f6; color: #ffffff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px; transition: background 0.2s;" onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
                         <i class="fa-solid fa-paper-plane" style="font-size: 12px;"></i> Get Started Free
                     </button>
-                    <button style="background: #1e293b; color: #ffffff; border: 1px solid #334155; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px;">
+                    <!-- Browse Jobs Button with click event -->
+                    <button onclick="scrollToJobs()" style="background: #1e293b; color: #ffffff; border: 1px solid #334155; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#334155'" onmouseout="this.style.background='#1e293b'">
                         Browse Jobs
                     </button>
                 </div>
@@ -293,8 +295,6 @@
     <!-- Footer Section -->
     <footer style="background: #0b1329; border-top: 1px solid #1e293b; padding: 50px 24px 30px; color: #94a3b8; font-size: 14px;">
         <div class="section-container" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;">
-            
-            <!-- Brand Info -->
             <div>
                 <div style="display: flex; align-items: center; gap: 10px; color: #ffffff; font-weight: 700; font-size: 18px; margin-bottom: 14px;">
                     <i class="fa-solid fa-graduation-cap" style="color: #3b82f6;"></i> CampusHire
@@ -303,8 +303,6 @@
                     Dedicated placement & internship portal for MCA students across top Indian universities.
                 </p>
             </div>
-
-            <!-- Quick Links -->
             <div>
                 <h4 style="color: #ffffff; font-size: 15px; font-weight: 600; margin-bottom: 16px;">Quick Links</h4>
                 <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
@@ -314,27 +312,20 @@
                     <li><a href="#companies" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Top Companies</a></li>
                 </ul>
             </div>
-
-            <!-- For Students -->
             <div>
                 <h4 style="color: #ffffff; font-size: 15px; font-weight: 600; margin-bottom: 16px;">For Students</h4>
                 <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
-                    <li><a href="#" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Resume Builder</a></li>
-                    <li><a href="#" style="color: #94a3b8; text-decoration: none; font-size: 13px;">MCA Interview Prep</a></li>
-                    <li><a href="#" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Placement Drive Updates</a></li>
+                    <li><a href="#" onclick="openGeneralModal('resume')" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Resume Builder</a></li>
+                    <li><a href="#" onclick="openGeneralModal('interview')" style="color: #94a3b8; text-decoration: none; font-size: 13px;">MCA Interview Prep</a></li>
+                    <li><a href="#" onclick="openGeneralModal('drives')" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Placement Drive Updates</a></li>
                 </ul>
             </div>
-
-            <!-- Contact Support -->
             <div>
                 <h4 style="color: #ffffff; font-size: 15px; font-weight: 600; margin-bottom: 16px;">Contact Support</h4>
                 <p style="font-size: 13px; color: #64748b; margin-bottom: 8px;">Need help with your application?</p>
                 <a href="mailto:support@campushire.in" style="color: #3b82f6; font-weight: 500; text-decoration: none; font-size: 13px;">support@campushire.in</a>
             </div>
-
         </div>
-
-        <!-- Footer Bottom Bar -->
         <div style="max-width: 1200px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; font-size: 13px; color: #64748b;">
             <p>&copy; 2026 CampusHire Inc. All rights reserved.</p>
             <div style="display: flex; gap: 16px;">
@@ -382,14 +373,12 @@
                 <h3 id="studentName" style="color: #ffffff; font-size: 22px; font-weight: 700; margin: 0;">Pratik Singh</h3>
                 <p id="studentRole" style="color: #3b82f6; font-size: 14px; font-weight: 600; margin-top: 4px;">System Engineer @ TCS</p>
             </div>
-
             <div style="background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 16px; margin-bottom: 20px;">
                 <p style="color: #94a3b8; font-size: 13px; margin: 6px 0;"><strong><i class="fa-solid fa-graduation-cap"></i> Degree:</strong> <span id="studentDegree" style="color: #f8fafc;">MCA (Master of Computer Applications)</span></p>
                 <p style="color: #94a3b8; font-size: 13px; margin: 6px 0;"><strong><i class="fa-solid fa-building-columns"></i> College:</strong> <span id="studentCollege" style="color: #f8fafc;">ABC Institute of Technology</span></p>
                 <p style="color: #94a3b8; font-size: 13px; margin: 6px 0;"><strong><i class="fa-solid fa-sack-dollar"></i> Package:</strong> <span id="studentPackage" style="color: #10b981; font-weight: 600;">6.5 LPA</span></p>
                 <p style="color: #94a3b8; font-size: 13px; margin: 6px 0;"><strong><i class="fa-solid fa-code"></i> Key Skills:</strong> <span id="studentSkills" style="color: #f8fafc;">Java, SQL, Spring Boot, React</span></p>
             </div>
-
             <div style="display: flex; gap: 10px;">
                 <a id="studentGithubBtn" href="https://github.com/singhpratik9936" target="_blank" style="flex: 1; text-align: center; background: #334155; color: #ffffff; text-decoration: none; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <i class="fa-brands fa-github"></i> GitHub
@@ -410,9 +399,24 @@
                 <h3 id="statTitle" style="color: #ffffff; font-size: 22px; font-weight: 700; margin: 0;">Stats Overview</h3>
                 <p id="statSub" style="color: #94a3b8; font-size: 13px; margin-top: 4px;">Detailed breakdown of records</p>
             </div>
-
             <div id="statContent" style="background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 18px; margin-bottom: 10px; font-size: 14px; color: #e2e8f0; line-height: 1.6;">
-                <!-- Record details render dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- General Feature / Get Started Modal -->
+    <div class="modal-overlay" id="generalDetailModal">
+        <div class="modal-box" style="max-width: 500px;">
+            <button class="close-modal" id="closeGeneralModalBtn">&times;</button>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <i id="generalIcon" class="fa-solid fa-rocket" style="font-size: 36px; color: #3b82f6; margin-bottom: 8px;"></i>
+                <h3 id="generalTitle" style="color: #ffffff; font-size: 22px; font-weight: 700; margin: 0;">Feature Details</h3>
+                <p id="generalSub" style="color: #94a3b8; font-size: 13px; margin-top: 4px;">CampusHire Portal</p>
+            </div>
+            <div id="generalContent" style="background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 18px; margin-bottom: 20px; font-size: 14px; color: #e2e8f0; line-height: 1.6;">
+            </div>
+            <div style="text-align: center;">
+                <button onclick="document.getElementById('generalDetailModal').classList.remove('active')" style="background: #3b82f6; color: #ffffff; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px;">Got It</button>
             </div>
         </div>
     </div>
@@ -420,6 +424,112 @@
     <script src="app.js"></script>
 
     <script>
+        // Scroll to Jobs section when 'Browse Jobs' clicked
+        function scrollToJobs() {
+            const jobsSection = document.getElementById('jobs');
+            if (jobsSection) {
+                jobsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // General Feature & Get Started Modal Logic
+        const generalDataMap = {
+            getStarted: {
+                icon: "fa-solid fa-rocket",
+                color: "#3b82f6",
+                title: "Welcome to CampusHire!",
+                sub: "Start your MCA career journey instantly",
+                content: `
+                    <p style="margin-bottom:10px;">Get Started Free process me aapko milte hain:</p>
+                    <ul style="padding-left:20px; color:#94a3b8; display:flex; flex-direction:column; gap:6px;">
+                        <li><strong style="color:#fff;">Free Profile Creation:</strong> Showcase your MCA projects & tech stack.</li>
+                        <li><strong style="color:#fff;">Direct HR Connect:</strong> Apply to 500+ active job posts seamlessly.</li>
+                        <li><strong style="color:#fff;">Interview Alerts:</strong> Instant notifications for upcoming company drives.</li>
+                    </ul>
+                `
+            },
+            login: {
+                icon: "fa-solid fa-right-to-bracket",
+                color: "#10b981",
+                title: "Candidate Login",
+                sub: "Access your dashboard & applications",
+                content: `
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        <div>
+                            <label style="font-size:12px; color:#94a3b8;">Email Address</label>
+                            <input type="email" placeholder="e.g. pratik@gmail.com" style="width:100%; background:#1e293b; border:1px solid #334155; padding:10px; border-radius:6px; color:#fff; margin-top:4px;">
+                        </div>
+                        <div>
+                            <label style="font-size:12px; color:#94a3b8;">Password</label>
+                            <input type="password" placeholder="••••••••" style="width:100%; background:#1e293b; border:1px solid #334155; padding:10px; border-radius:6px; color:#fff; margin-top:4px;">
+                        </div>
+                        <button onclick="alert('Successfully Logged In!'); document.getElementById('generalDetailModal').classList.remove('active');" style="background:#10b981; color:#fff; border:none; padding:10px; border-radius:6px; font-weight:600; cursor:pointer; margin-top:6px;">Login Now</button>
+                    </div>
+                `
+            },
+            register: {
+                icon: "fa-solid fa-user-plus",
+                color: "#a855f7",
+                title: "Student Registration",
+                sub: "Join 5000+ MCA students",
+                content: `
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                        <div>
+                            <label style="font-size:12px; color:#94a3b8;">Full Name</label>
+                            <input type="text" placeholder="Pratik Singh" style="width:100%; background:#1e293b; border:1px solid #334155; padding:8px; border-radius:6px; color:#fff; margin-top:2px;">
+                        </div>
+                        <div>
+                            <label style="font-size:12px; color:#94a3b8;">College / University</label>
+                            <input type="text" placeholder="ABC Institute" style="width:100%; background:#1e293b; border:1px solid #334155; padding:8px; border-radius:6px; color:#fff; margin-top:2px;">
+                        </div>
+                        <div>
+                            <label style="font-size:12px; color:#94a3b8;">Email</label>
+                            <input type="email" placeholder="email@domain.com" style="width:100%; background:#1e293b; border:1px solid #334155; padding:8px; border-radius:6px; color:#fff; margin-top:2px;">
+                        </div>
+                        <button onclick="alert('Registration Successful! Welcome to CampusHire.'); document.getElementById('generalDetailModal').classList.remove('active');" style="background:#a855f7; color:#fff; border:none; padding:10px; border-radius:6px; font-weight:600; cursor:pointer; margin-top:4px;">Register Account</button>
+                    </div>
+                `
+            },
+            resume: {
+                icon: "fa-solid fa-file-lines",
+                color: "#3b82f6",
+                title: "MCA Resume Builder",
+                sub: "ATS-friendly tech resume generator",
+                content: `<p>Build professional tech resumes optimized for software engineering and full-stack developer roles with pre-formatted MCA templates.</p>`
+            },
+            interview: {
+                icon: "fa-solid fa-chalkboard-user",
+                color: "#f59e0b",
+                title: "MCA Interview Preparation",
+                sub: "DSA, DBMS & System Design",
+                content: `<p>Access curated question banks, mock tests, and coding interview guides specifically designed for MCA placements in top MNCs.</p>`
+            },
+            drives: {
+                icon: "fa-solid fa-calendar-days",
+                color: "#ef4444",
+                title: "Placement Drive Updates",
+                sub: "On-campus & off-campus schedules",
+                content: `<p>Get real-time notification alerts regarding upcoming recruitment drives by TCS, Infosys, Wipro, Accenture, and product startups.</p>`
+            }
+        };
+
+        function openGeneralModal(key) {
+            const data = generalDataMap[key];
+            if (!data) return;
+
+            document.getElementById('generalIcon').className = data.icon;
+            document.getElementById('generalIcon').style.color = data.color;
+            document.getElementById('generalTitle').innerText = data.title;
+            document.getElementById('generalSub').innerText = data.sub;
+            document.getElementById('generalContent').innerHTML = data.content;
+
+            document.getElementById('generalDetailModal').classList.add('active');
+        }
+
+        document.getElementById('closeGeneralModalBtn').addEventListener('click', function() {
+            document.getElementById('generalDetailModal').classList.remove('active');
+        });
+
         // Student Modal Data & Logic
         const studentDataMap = {
             pratik: {
