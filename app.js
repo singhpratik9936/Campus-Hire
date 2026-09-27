@@ -192,60 +192,66 @@ function closeAuthModal() {
     authForm.reset();
 }
 
-closeAuthBtn.addEventListener('click', closeAuthModal);
-cancelAuthBtn.addEventListener('click', closeAuthModal);
+if (closeAuthBtn) closeAuthBtn.addEventListener('click', closeAuthModal);
+if (cancelAuthBtn) cancelAuthBtn.addEventListener('click', closeAuthModal);
 
-authForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = authEmail.value.trim();
-    const password = authPassword.value.trim();
-    const users = JSON.parse(localStorage.getItem('campusHireUsers')) || [];
+if (authForm) {
+    authForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = authEmail.value.trim();
+        const password = authPassword.value.trim();
+        const users = JSON.parse(localStorage.getItem('campusHireUsers')) || [];
 
-    if (isRegisterMode) {
-        const name = authName.value.trim();
-        const existing = users.find(u => u.email === email);
-        if (existing) {
-            alert("This email is already registered!");
-            return;
+        if (isRegisterMode) {
+            const name = authName.value.trim();
+            const existing = users.find(u => u.email === email);
+            if (existing) {
+                alert("This email is already registered!");
+                return;
+            }
+            const newUser = { name, email, password };
+            users.push(newUser);
+            localStorage.setItem('campusHireUsers', JSON.stringify(users));
+            localStorage.setItem('campusHireUser', JSON.stringify(newUser));
+            currentUser = newUser;
+            alert("Registration Successful!");
+        } else {
+            const user = users.find(u => u.email === email && u.password === password);
+            if (!user) {
+                alert("Invalid Email or Password!");
+                return;
+            }
+            localStorage.setItem('campusHireUser', JSON.stringify(user));
+            currentUser = user;
+            alert("Logged in Successfully!");
         }
-        const newUser = { name, email, password };
-        users.push(newUser);
-        localStorage.setItem('campusHireUsers', JSON.stringify(users));
-        localStorage.setItem('campusHireUser', JSON.stringify(newUser));
-        currentUser = newUser;
-        alert("Registration Successful!");
-    } else {
-        const user = users.find(u => u.email === email && u.password === password);
-        if (!user) {
-            alert("Invalid Email or Password!");
-            return;
-        }
-        localStorage.setItem('campusHireUser', JSON.stringify(user));
-        currentUser = user;
-        alert("Logged in Successfully!");
-    }
 
-    closeAuthModal();
-    updateAuthUI();
-});
+        closeAuthModal();
+        updateAuthUI();
+    });
+}
 
 // ==========================================
-// 5. RENDER JOBS & PRESERVE APPLIED DETAILS
+// 5. RENDER JOBS & SEARCH FILTERING
 // ==========================================
 function renderJobs(filterType = "ALL", searchQuery = "") {
     if (!jobsGrid) return;
     jobsGrid.innerHTML = "";
 
+    const query = searchQuery.trim().toLowerCase();
+
     const filtered = jobsData.filter(job => {
         const matchesType = (filterType === "ALL") || (job.type.toLowerCase() === filterType.toLowerCase());
-        const matchesSearch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                              job.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                              job.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+        const matchesSearch = query === "" ||
+                              job.title.toLowerCase().includes(query) || 
+                              job.company.toLowerCase().includes(query) ||
+                              job.location.toLowerCase().includes(query) ||
+                              job.tags.some(tag => tag.toLowerCase().includes(query));
         return matchesType && matchesSearch;
     });
 
     if (filtered.length === 0) {
-        jobsGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px;">No positions found matching your criteria.</p>`;
+        jobsGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px; font-size: 16px;">No positions found matching "${searchQuery}".</p>`;
         return;
     }
 
@@ -305,16 +311,25 @@ function renderJobs(filterType = "ALL", searchQuery = "") {
     });
 }
 
+// Perform Search Action and Smooth Scroll to Jobs Section
+function performSearch() {
+    const selectedType = typeFilter ? typeFilter.value : "ALL";
+    const query = searchInput ? searchInput.value : "";
+    
+    renderJobs(selectedType, query);
+
+    const jobsSection = document.getElementById('jobs');
+    if (jobsSection) {
+        jobsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
 // Global Company Filter function for "Hiring Now" tags
 window.filterByCompany = function(companyName) {
     if (searchInput) {
         searchInput.value = companyName;
     }
-    renderJobs("ALL", companyName);
-    const jobsSection = document.getElementById('jobs');
-    if (jobsSection) {
-        jobsSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    performSearch();
 };
 
 // ==========================================
@@ -345,20 +360,22 @@ function closeApplyModal() {
 if (closeModalBtn) closeModalBtn.addEventListener('click', closeApplyModal);
 if (cancelModalBtn) cancelModalBtn.addEventListener('click', closeApplyModal);
 
-applyForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const jobId = modalJobId.value;
-    const name = document.getElementById('applicantName').value.trim();
-    const email = document.getElementById('applicantEmail').value.trim();
-    const github = document.getElementById('applicantGithub').value.trim();
+if (applyForm) {
+    applyForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const jobId = modalJobId.value;
+        const name = document.getElementById('applicantName').value.trim();
+        const email = document.getElementById('applicantEmail').value.trim();
+        const github = document.getElementById('applicantGithub').value.trim();
 
-    // Store student application against the specific Job ID
-    applicationsMap[jobId] = { name, email, github };
+        // Store student application against the specific Job ID
+        applicationsMap[jobId] = { name, email, github };
 
-    closeApplyModal();
-    renderJobs(getActiveFilter(), searchInput ? searchInput.value : "");
-});
+        closeApplyModal();
+        renderJobs(getActiveFilter(), searchInput ? searchInput.value : "");
+    });
+}
 
 // Helper for Filter Tabs
 function getActiveFilter() {
@@ -369,18 +386,36 @@ function getActiveFilter() {
 // ==========================================
 // 7. EVENT LISTENERS & INITIALIZATION
 // ==========================================
+
+// Click on Search Button
 if (searchBtn) {
-    searchBtn.addEventListener('click', () => {
-        renderJobs(typeFilter ? typeFilter.value : "ALL", searchInput.value);
+    searchBtn.addEventListener('click', performSearch);
+}
+
+// Press Enter inside Search Input Box
+if (searchInput) {
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            performSearch();
+        }
+    });
+
+    // Instant filter on typing
+    searchInput.addEventListener('input', () => {
+        const selectedType = typeFilter ? typeFilter.value : "ALL";
+        renderJobs(selectedType, searchInput.value);
     });
 }
 
+// Dropdown Type Filter Change
 if (typeFilter) {
     typeFilter.addEventListener('change', () => {
-        renderJobs(typeFilter.value, searchInput.value);
+        performSearch();
     });
 }
 
+// Tab Category Filters (All / Full Time / Internships)
 filterTabs.forEach(tab => {
     tab.addEventListener('click', () => {
         filterTabs.forEach(t => t.classList.remove('active'));
