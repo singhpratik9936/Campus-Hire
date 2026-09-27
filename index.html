@@ -1,10 +1,216 @@
-<!-- Recently Placed Students Cards Section -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusHire - MCA Placement & Internship Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="brand">
+                <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                <div class="brand-text">
+                    <h2>CampusHire</h2>
+                    <span>MCA Placement & Internship Portal</span>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#jobs">Jobs</a></li>
+                <li><a href="#jobs">Internships</a></li>
+                <li><a href="#companies">Companies</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="btn-login">Login</button>
+                <button class="btn-register">Register</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <span class="hero-tag">— WELCOME TO CAMPUSHIRE</span>
+                <h1>Your Career<br><span class="highlight">Starts Here</span></h1>
+                <p>Connect with top companies, explore internships, find your dream job and build a better future. Trusted by 5000+ MCA students across India.</p>
+
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <select id="typeFilter">
+                        <option value="ALL">All Types</option>
+                        <option value="Full Time">Full-Time</option>
+                        <option value="Internship">Internship</option>
+                    </select>
+                    <input type="text" id="searchInput" placeholder="Search jobs, internships, companies...">
+                    <button id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                </div>
+
+                <div class="hero-badges">
+                    <span><i class="fa-solid fa-circle-check"></i> Verified Recruiters</span>
+                    <span><i class="fa-solid fa-circle-check"></i> Easy Apply</span>
+                    <span><i class="fa-solid fa-circle-check"></i> Top Tech Stacks</span>
+                </div>
+            </div>
+
+            <div class="hero-graphic">
+                <div class="graphic-card">
+                    <i class="fa-solid fa-user-graduate main-icon"></i>
+                    <span class="hiring-badge"><i class="fa-solid fa-bolt"></i> TCS Hiring 2026</span>
+                    <div class="floating-badge">
+                        <i class="fa-solid fa-award"></i>
+                        <span><strong>47 Placed</strong> This Week</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats Banner -->
+        <div class="stats-banner">
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Active Job Posts</p>
+            </div>
+            <div class="stat-item">
+                <h3>200+</h3>
+                <p>Companies</p>
+            </div>
+            <div class="stat-item">
+                <h3>5000+</h3>
+                <p>MCA Students</p>
+            </div>
+            <div class="stat-item">
+                <h3>95%</h3>
+                <p>Placement Rate</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Highlights -->
+    <section class="features-section">
+        <div class="section-container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fa-solid fa-bolt icon-fast"></i>
+                    <div>
+                        <h4>Fast Delivery</h4>
+                        <p>Quick & reliable shortlisting</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-lock icon-secure"></i>
+                    <div>
+                        <h4>Secure Data</h4>
+                        <p>Your profile stays protected</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-arrow-rotate-left icon-easy"></i>
+                    <div>
+                        <h4>Easy Process</h4>
+                        <p>Simple 1-click apply process</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-headset icon-support"></i>
+                    <div>
+                        <h4>24/7 Support</h4>
+                        <p>We're here to help placement seekers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jobs & Internships Section -->
+    <section id="jobs" class="jobs-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">OPPORTUNITIES</span>
+                <h2>Latest Jobs & Internships</h2>
+                <p>Handpicked for MCA students. Updated daily from top tech companies.</p>
+                <div class="filter-tabs">
+                    <button class="tab-btn active" data-filter="ALL">All Posts</button>
+                    <button class="tab-btn" data-filter="Full Time">Full-Time</button>
+                    <button class="tab-btn" data-filter="Internship">Internships</button>
+                </div>
+            </div>
+
+            <!-- Job Cards Container -->
+            <div class="jobs-grid" id="jobsGrid">
+                <!-- Dynamic cards rendered via app.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Hiring Companies -->
+    <section id="companies" class="companies-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">COMPANIES</span>
+                <h2>Top Hiring Companies</h2>
+                <p>India's leading companies actively recruiting MCA graduates.</p>
+            </div>
+            <div class="companies-grid">
+                <div class="company-card">
+                    <div class="company-logo logo-tcs"><i class="fa-solid fa-building"></i></div>
+                    <h3>TCS</h3>
+                    <p>IT Services</p>
+                    <span class="hiring-tag" onclick="filterByCompany('TCS')" style="cursor: pointer;">Hiring Now</span>
+                    <div class="company-stats">
+                        <span><strong>24</strong> Open Roles</span>
+                        <span><strong>120+</strong> Hired</span>
+                    </div>
+                </div>
+                <div class="company-card">
+                    <div class="company-logo logo-infosys"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h3>Infosys</h3>
+                    <p>IT Consulting</p>
+                    <span class="hiring-tag" onclick="filterByCompany('Infosys')" style="cursor: pointer;">Hiring Now</span>
+                    <div class="company-stats">
+                        <span><strong>18</strong> Open Roles</span>
+                        <span><strong>95+</strong> Hired</span>
+                    </div>
+                </div>
+                <div class="company-card">
+                    <div class="company-logo logo-wipro"><i class="fa-solid fa-network-wired"></i></div>
+                    <h3>Wipro</h3>
+                    <p>Tech & BPO</p>
+                    <span class="hiring-tag" onclick="filterByCompany('Wipro')" style="cursor: pointer;">Hiring Now</span>
+                    <div class="company-stats">
+                        <span><strong>15</strong> Open Roles</span>
+                        <span><strong>80+</strong> Hired</span>
+                    </div>
+                </div>
+                <div class="company-card">
+                    <div class="company-logo logo-accenture"><i class="fa-solid fa-microchip"></i></div>
+                    <h3>Accenture</h3>
+                    <p>Consulting</p>
+                    <span class="hiring-tag" onclick="filterByCompany('Accenture')" style="cursor: pointer;">Hiring Now</span>
+                    <div class="company-stats">
+                        <span><strong>20</strong> Open Roles</span>
+                        <span><strong>110+</strong> Hired</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recently Placed Students Cards Section -->
     <section class="students-placed-section" style="padding: 40px 24px;">
         <div class="section-container">
             <div class="placed-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
                 
                 <!-- Candidate 1: Pratik Singh -->
-                <div class="placed-card" onclick="openStudentModal('pratik')" style="background: #1e293b; border: 1px solid #334155; padding: 18px 20px; border-radius: 12px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#3b82f6'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='#334155'; this.style.transform='translateY(0)';">
+                <div class="placed-card" onclick="openStudentModal('pratik')" style="background: #1e293b; border: 1px solid #334155; padding: 18px 20px; border-radius: 12px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#3b82f6'; this.style.transform='translateY(-3px)';" onmouseout="this.style.borderColor='#334155'; this.style.transform='translateY(0)';">
                     <div style="width: 42px; height: 42px; border-radius: 50%; background: #2563eb; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 18px;">P</div>
                     <div>
                         <h4 style="color: #ffffff; font-size: 15px; font-weight: 600; margin: 0;">Pratik Singh</h4>
@@ -13,7 +219,7 @@
                 </div>
 
                 <!-- Candidate 2: Riya Patel -->
-                <div class="placed-card" onclick="openStudentModal('riya')" style="background: #1e293b; border: 1px solid #334155; padding: 18px 20px; border-radius: 12px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#a855f7'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='#334155'; this.style.transform='translateY(0)';">
+                <div class="placed-card" onclick="openStudentModal('riya')" style="background: #1e293b; border: 1px solid #334155; padding: 18px 20px; border-radius: 12px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#a855f7'; this.style.transform='translateY(-3px)';" onmouseout="this.style.borderColor='#334155'; this.style.transform='translateY(0)';">
                     <div style="width: 42px; height: 42px; border-radius: 50%; background: #9333ea; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 18px;">R</div>
                     <div>
                         <h4 style="color: #ffffff; font-size: 15px; font-weight: 600; margin: 0;">Riya Patel</h4>
@@ -22,7 +228,7 @@
                 </div>
 
                 <!-- Candidate 3: Rohit Kumar -->
-                <div class="placed-card" onclick="openStudentModal('rohit')" style="background: #1e293b; border: 1px solid #334155; padding: 18px 20px; border-radius: 12px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#10b981'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='#334155'; this.style.transform='translateY(0)';">
+                <div class="placed-card" onclick="openStudentModal('rohit')" style="background: #1e293b; border: 1px solid #334155; padding: 18px 20px; border-radius: 12px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#10b981'; this.style.transform='translateY(-3px)';" onmouseout="this.style.borderColor='#334155'; this.style.transform='translateY(0)';">
                     <div style="width: 42px; height: 42px; border-radius: 50%; background: #059669; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 18px;">R</div>
                     <div>
                         <h4 style="color: #ffffff; font-size: 15px; font-weight: 600; margin: 0;">Rohit Kumar</h4>
@@ -33,3 +239,234 @@
             </div>
         </div>
     </section>
+
+    <!-- About Section -->
+    <section id="about" style="padding: 60px 24px; background: #0f172a;">
+        <div class="section-container" style="max-width: 1200px; margin: 0 auto;">
+            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+                <span class="section-badge" style="color: #3b82f6; font-weight: 600; font-size: 13px; letter-spacing: 1px;">ABOUT US</span>
+                <h2 style="color: #ffffff; font-size: 28px; font-weight: 700; margin-top: 8px;">Empowering MCA Students Nationwide</h2>
+                <p style="color: #94a3b8; font-size: 15px; max-width: 650px; margin: 10px auto 0; line-height: 1.6;">
+                    CampusHire is a dedicated placement and internship portal built specifically for MCA scholars to bridge the gap between academia and top IT tech giants.
+                </p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+                <div style="background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; text-align: center;">
+                    <i class="fa-solid fa-bullseye" style="font-size: 32px; color: #3b82f6; margin-bottom: 16px;"></i>
+                    <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 10px;">Our Mission</h3>
+                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.5;">To streamline campus hiring by directly connecting MCA candidates with verified recruiters and internships across India.</p>
+                </div>
+                <div style="background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; text-align: center;">
+                    <i class="fa-solid fa-chart-line" style="font-size: 32px; color: #10b981; margin-bottom: 16px;"></i>
+                    <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 10px;">Proven Growth</h3>
+                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.5;">Helping over 5,000+ MCA students discover active software roles, full-stack opportunities, and paid internships.</p>
+                </div>
+                <div style="background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; text-align: center;">
+                    <i class="fa-solid fa-shield-halved" style="font-size: 32px; color: #a855f7; margin-bottom: 16px;"></i>
+                    <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 10px;">100% Verified Roles</h3>
+                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.5;">Every listing is thoroughly verified to ensure transparent stipends, authentic tech stacks, and career growth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Build Your Future Banner -->
+    <section class="cta-banner-section" style="padding: 20px 24px 60px;">
+        <div class="section-container">
+            <div style="background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%); border: 1px solid #312e81; border-radius: 20px; padding: 50px 20px; text-align: center;">
+                <h2 style="font-size: 32px; font-weight: 800; color: #ffffff; margin-bottom: 12px;">Build Your Future With CampusHire</h2>
+                <p style="color: #94a3b8; font-size: 15px; max-width: 600px; margin: 0 auto 28px; line-height: 1.5;">
+                    Join thousands of MCA students already getting placed. Start your career journey today — completely free.
+                </p>
+                <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+                    <button style="background: #3b82f6; color: #ffffff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-paper-plane" style="font-size: 12px;"></i> Get Started Free
+                    </button>
+                    <button style="background: #1e293b; color: #ffffff; border: 1px solid #334155; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px;">
+                        Browse Jobs
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer style="background: #0b1329; border-top: 1px solid #1e293b; padding: 50px 24px 30px; color: #94a3b8; font-size: 14px;">
+        <div class="section-container" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;">
+            
+            <!-- Brand Info -->
+            <div>
+                <div style="display: flex; align-items: center; gap: 10px; color: #ffffff; font-weight: 700; font-size: 18px; margin-bottom: 14px;">
+                    <i class="fa-solid fa-graduation-cap" style="color: #3b82f6;"></i> CampusHire
+                </div>
+                <p style="line-height: 1.6; font-size: 13px; color: #64748b;">
+                    Dedicated placement & internship portal for MCA students across top Indian universities.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h4 style="color: #ffffff; font-size: 15px; font-weight: 600; margin-bottom: 16px;">Quick Links</h4>
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+                    <li><a href="#home" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Home</a></li>
+                    <li><a href="#jobs" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Explore Jobs</a></li>
+                    <li><a href="#jobs" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Internships</a></li>
+                    <li><a href="#companies" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Top Companies</a></li>
+                </ul>
+            </div>
+
+            <!-- For Students -->
+            <div>
+                <h4 style="color: #ffffff; font-size: 15px; font-weight: 600; margin-bottom: 16px;">For Students</h4>
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+                    <li><a href="#" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Resume Builder</a></li>
+                    <li><a href="#" style="color: #94a3b8; text-decoration: none; font-size: 13px;">MCA Interview Prep</a></li>
+                    <li><a href="#" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Placement Drive Updates</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Support -->
+            <div>
+                <h4 style="color: #ffffff; font-size: 15px; font-weight: 600; margin-bottom: 16px;">Contact Support</h4>
+                <p style="font-size: 13px; color: #64748b; margin-bottom: 8px;">Need help with your application?</p>
+                <a href="mailto:support@campushire.in" style="color: #3b82f6; font-weight: 500; text-decoration: none; font-size: 13px;">support@campushire.in</a>
+            </div>
+
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div style="max-width: 1200px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; font-size: 13px; color: #64748b;">
+            <p>&copy; 2026 CampusHire Inc. All rights reserved.</p>
+            <div style="display: flex; gap: 16px;">
+                <a href="https://github.com/singhpratik9936" target="_blank" style="color: #94a3b8; font-size: 16px;"><i class="fa-brands fa-github"></i></a>
+                <a href="#" style="color: #94a3b8; font-size: 16px;"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Application Modal -->
+    <div class="modal-overlay" id="applicationModal">
+        <div class="modal-box">
+            <button class="close-modal" id="closeModalBtn">&times;</button>
+            <h3 id="modalJobTitle">Apply for Job</h3>
+            <p id="modalCompanyName" class="modal-sub">Company Name</p>
+
+            <form id="applyForm">
+                <input type="hidden" id="modalJobId">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="applicantName" placeholder="e.g. Pratik Singh" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" id="applicantEmail" placeholder="e.g. pratik@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label>GitHub Profile / Repository URL *</label>
+                    <input type="text" id="applicantGithub" placeholder="https://github.com/singhpratik9936" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" id="cancelModalBtn">Cancel</button>
+                    <button type="submit" class="btn-submit">Submit Application</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Student Details Modal -->
+    <div class="modal-overlay" id="studentDetailModal">
+        <div class="modal-box" style="max-width: 480px;">
+            <button class="close-modal" id="closeStudentModalBtn">&times;</button>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div id="studentAvatar" style="width: 60px; height: 60px; border-radius: 50%; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 12px;">P</div>
+                <h3 id="studentName" style="color: #ffffff; font-size: 22px; font-weight: 700; margin: 0;">Pratik Singh</h3>
+                <p id="studentRole" style="color: #3b82f6; font-size: 14px; font-weight: 600; margin-top: 4px;">System Engineer @ TCS</p>
+            </div>
+
+            <div style="background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 16px; margin-bottom: 20px;">
+                <p style="color: #94a3b8; font-size: 13px; margin: 6px 0;"><strong><i class="fa-solid fa-graduation-cap"></i> Degree:</strong> <span id="studentDegree" style="color: #f8fafc;">MCA (Master of Computer Applications)</span></p>
+                <p style="color: #94a3b8; font-size: 13px; margin: 6px 0;"><strong><i class="fa-solid fa-building-columns"></i> College:</strong> <span id="studentCollege" style="color: #f8fafc;">ABC Institute of Technology</span></p>
+                <p style="color: #94a3b8; font-size: 13px; margin: 6px 0;"><strong><i class="fa-solid fa-sack-dollar"></i> Package:</strong> <span id="studentPackage" style="color: #10b981; font-weight: 600;">6.5 LPA</span></p>
+                <p style="color: #94a3b8; font-size: 13px; margin: 6px 0;"><strong><i class="fa-solid fa-code"></i> Key Skills:</strong> <span id="studentSkills" style="color: #f8fafc;">Java, SQL, Spring Boot, React</span></p>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <a id="studentGithubBtn" href="https://github.com/singhpratik9936" target="_blank" style="flex: 1; text-align: center; background: #334155; color: #ffffff; text-decoration: none; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+                <a id="studentLinkedinBtn" href="#" target="_blank" style="flex: 1; text-align: center; background: #2563eb; color: #ffffff; text-decoration: none; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <i class="fa-brands fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+
+    <script>
+        // Student Modal JavaScript Data & Logic
+        const studentDataMap = {
+            pratik: {
+                name: "Pratik Singh",
+                role: "System Engineer @ TCS",
+                avatarBg: "#2563eb",
+                letter: "P",
+                college: "ABC Institute of Technology",
+                package: "6.5 LPA",
+                skills: "Java, SQL, Spring Boot, React",
+                github: "https://github.com/singhpratik9936",
+                linkedin: "#"
+            },
+            riya: {
+                name: "Riya Patel",
+                role: "SDE Intern @ Infosys",
+                avatarBg: "#9333ea",
+                letter: "R",
+                college: "XYZ National University",
+                package: "₹25,000 / month",
+                skills: "Python, Django, REST API, HTML/CSS",
+                github: "https://github.com",
+                linkedin: "#"
+            },
+            rohit: {
+                name: "Rohit Kumar",
+                role: "Frontend Dev @ Wipro",
+                avatarBg: "#059669",
+                letter: "R",
+                college: "Global Institute of Science",
+                package: "5.5 LPA",
+                skills: "JavaScript, React, Tailwind CSS, Git",
+                github: "https://github.com",
+                linkedin: "#"
+            }
+        };
+
+        function openStudentModal(studentKey) {
+            const student = studentDataMap[studentKey];
+            if (!student) return;
+
+            document.getElementById('studentAvatar').style.background = student.avatarBg;
+            document.getElementById('studentAvatar').innerText = student.letter;
+            document.getElementById('studentName').innerText = student.name;
+            document.getElementById('studentRole').innerText = student.role;
+            document.getElementById('studentCollege').innerText = student.college;
+            document.getElementById('studentPackage').innerText = student.package;
+            document.getElementById('studentSkills').innerText = student.skills;
+            document.getElementById('studentGithubBtn').href = student.github;
+            document.getElementById('studentLinkedinBtn').href = student.linkedin;
+
+            document.getElementById('studentDetailModal').classList.add('active');
+        }
+
+        document.getElementById('closeStudentModalBtn').addEventListener('click', function() {
+            document.getElementById('studentDetailModal').classList.remove('active');
+        });
+
+        document.getElementById('studentDetailModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
