@@ -190,7 +190,7 @@ body {
     font-size: 13px;
 }
 
-/* Screenshot Matching Preview Cards Stack */
+/* Preview Cards Stack */
 .hero-graphic {
     flex: 0.8;
     display: flex;
@@ -540,7 +540,7 @@ body {
     color: #94a3b8;
 }
 
-/* Screenshot Matching Bottom Banner Section */
+/* Middle Banner Section */
 .banner-section {
     padding: 40px 24px 60px;
     background-color: #0b1120;
@@ -593,6 +593,107 @@ body {
     border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
+}
+
+/* FOOTER STYLING (Screenshot Match) */
+.footer {
+    background-color: #030712;
+    border-top: 1px solid #1e293b;
+    padding: 60px 24px 30px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.footer-brand-title {
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.footer-desc {
+    color: #64748b;
+    font-size: 13px;
+    margin-top: 14px;
+    line-height: 1.6;
+    max-width: 300px;
+}
+
+.footer-col h4 {
+    color: #f8fafc;
+    font-size: 15px;
+    margin-bottom: 18px;
+    font-weight: 600;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: #38bdf8;
+}
+
+.support-text {
+    color: #94a3b8;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.support-email {
+    color: #38bdf8;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.support-email:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #1e293b;
+    padding-top: 24px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 16px;
+}
+
+.footer-socials a {
+    color: #94a3b8;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+.footer-socials a:hover {
+    color: #ffffff;
 }
 
 /* Modal Styling */
@@ -686,10 +787,15 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-    .hero-container, .features-grid, .stats-banner, .companies-grid {
+    .hero-container, .features-grid, .stats-banner, .companies-grid, .footer-grid {
         grid-template-columns: 1fr;
         flex-direction: column;
     }
     .hero-graphic { display: none; }
     .nav-links { display: none; }
+    .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
 }
