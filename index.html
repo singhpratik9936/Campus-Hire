@@ -73,23 +73,23 @@
             </div>
         </div>
 
-        <!-- Interactive Quick Stats Banner -->
+        <!-- Quick Stats Banner (Clickable Cards) -->
         <div class="stats-banner">
-            <div class="stat-item" onclick="openStatModal('jobs')" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            <div class="stat-item" onclick="openStatModal('jobs')" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                 <h3>500+</h3>
-                <p>Active Job Posts <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px; opacity:0.7;"></i></p>
+                <p>Active Job Posts</p>
             </div>
-            <div class="stat-item" onclick="openStatModal('companies')" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            <div class="stat-item" onclick="openStatModal('companies')" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                 <h3>200+</h3>
-                <p>Companies <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px; opacity:0.7;"></i></p>
+                <p>Companies</p>
             </div>
-            <div class="stat-item" onclick="openStatModal('students')" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            <div class="stat-item" onclick="openStatModal('students')" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                 <h3>5000+</h3>
-                <p>MCA Students <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px; opacity:0.7;"></i></p>
+                <p>MCA Students</p>
             </div>
-            <div class="stat-item" onclick="openStatModal('placement')" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            <div class="stat-item" onclick="openStatModal('placement')" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                 <h3>95%</h3>
-                <p>Placement Rate <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px; opacity:0.7;"></i></p>
+                <p>Placement Rate</p>
             </div>
         </div>
     </section>
@@ -401,22 +401,18 @@
         </div>
     </div>
 
-    <!-- Quick Stats Details Modal -->
+    <!-- Quick Stats Breakdown Modal -->
     <div class="modal-overlay" id="statDetailModal">
         <div class="modal-box" style="max-width: 520px;">
             <button class="close-modal" id="closeStatModalBtn">&times;</button>
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-                <div id="statModalIcon" style="width: 44px; height: 44px; border-radius: 10px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; display: flex; align-items: center; justify-content: center; font-size: 20px;">
-                    <i class="fa-solid fa-chart-line"></i>
-                </div>
-                <div>
-                    <h3 id="statModalTitle" style="color: #ffffff; font-size: 20px; font-weight: 700; margin: 0;">Active Job Posts Record</h3>
-                    <span id="statModalSubtitle" style="color: #94a3b8; font-size: 13px;">Campus Placement Statistics</span>
-                </div>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <i id="statIcon" class="fa-solid fa-chart-pie" style="font-size: 36px; color: #3b82f6; margin-bottom: 8px;"></i>
+                <h3 id="statTitle" style="color: #ffffff; font-size: 22px; font-weight: 700; margin: 0;">Stats Overview</h3>
+                <p id="statSub" style="color: #94a3b8; font-size: 13px; margin-top: 4px;">Detailed breakdown of records</p>
             </div>
 
-            <div id="statModalContent" style="max-height: 320px; overflow-y: auto; padding-right: 4px;">
-                <!-- Dynamic Records Injected Here -->
+            <div id="statContent" style="background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 18px; margin-bottom: 10px; font-size: 14px; color: #e2e8f0; line-height: 1.6;">
+                <!-- Record details render dynamically -->
             </div>
         </div>
     </div>
@@ -424,93 +420,7 @@
     <script src="app.js"></script>
 
     <script>
-        // Stats Data Records
-        const statsRecordData = {
-            jobs: {
-                title: "500+ Active Job Posts",
-                subtitle: "Breakdown of Available Openings",
-                icon: "fa-briefcase",
-                color: "#3b82f6",
-                records: [
-                    { label: "Software Engineering & Dev", value: "210 Openings", badge: "High Demand" },
-                    { label: "Data Analytics & AI/ML", value: "115 Openings", badge: "Trending" },
-                    { label: "Cloud & DevOps Roles", value: "95 Openings", badge: "Active" },
-                    { label: "QA & Software Testing", value: "80 Openings", badge: "Active" }
-                ]
-            },
-            companies: {
-                title: "200+ Partner Companies",
-                subtitle: "Top Recruiters Hiring MCA Graduates",
-                icon: "fa-building",
-                color: "#10b981",
-                records: [
-                    { label: "Tier 1 MNCs (TCS, Infosys, Wipro)", value: "45 Companies", badge: "Mass Recruiters" },
-                    { label: "Product Tech Giants", value: "35 Companies", badge: "High CTC" },
-                    { label: "High-Growth Tech Startups", value: "85 Companies", badge: "Fast Hiring" },
-                    { label: "FinTech & IT Consultancies", value: "35 Companies", badge: "Verified" }
-                ]
-            },
-            students: {
-                title: "5000+ Registered MCA Students",
-                subtitle: "Student Demographics Across India",
-                icon: "fa-user-graduate",
-                color: "#a855f7",
-                records: [
-                    { label: "Final Year MCA Candidates", value: "2,800 Students", badge: "Job Ready" },
-                    { label: "1st Year MCA Candidates", value: "2,200 Students", badge: "Internship Ready" },
-                    { label: "Students Placed in 2026", value: "1,950 Placed", badge: "Verified" },
-                    { label: "Participating Universities", value: "120+ Colleges", badge: "PAN India" }
-                ]
-            },
-            placement: {
-                title: "95% Overall Placement Rate",
-                subtitle: "Success Rate Statistics",
-                icon: "fa-chart-pie",
-                color: "#f59e0b",
-                records: [
-                    { label: "Average Salary Package", value: "₹5.8 LPA", badge: "Avg CTC" },
-                    { label: "Highest CTC Offered", value: "₹24.0 LPA", badge: "Record Peak" },
-                    { label: "Paid Internships Conversion", value: "88% Converted", badge: "Full-Time" },
-                    { label: "Offer Acceptance Rate", value: "92%", badge: "Confirmed" }
-                ]
-            }
-        };
-
-        function openStatModal(type) {
-            const data = statsRecordData[type];
-            if (!data) return;
-
-            document.getElementById('statModalTitle').innerText = data.title;
-            document.getElementById('statModalSubtitle').innerText = data.subtitle;
-            document.getElementById('statModalIcon').innerHTML = `<i class="fa-solid ${data.icon}"></i>`;
-            document.getElementById('statModalIcon').style.color = data.color;
-            document.getElementById('statModalIcon').style.background = data.color + '1f';
-
-            const contentContainer = document.getElementById('statModalContent');
-            contentContainer.innerHTML = data.records.map(rec => `
-                <div style="background: #0f172a; border: 1px solid #334155; padding: 14px 16px; border-radius: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <h5 style="color: #f8fafc; font-size: 14px; font-weight: 600; margin: 0 0 4px 0;">${rec.label}</h5>
-                        <span style="background: #1e293b; color: ${data.color}; border: 1px solid ${data.color}40; font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: 600;">${rec.badge}</span>
-                    </div>
-                    <span style="color: #ffffff; font-weight: 700; font-size: 15px;">${rec.value}</span>
-                </div>
-            `).join('');
-
-            document.getElementById('statDetailModal').classList.add('active');
-        }
-
-        document.getElementById('closeStatModalBtn').addEventListener('click', function() {
-            document.getElementById('statDetailModal').classList.remove('active');
-        });
-
-        document.getElementById('statDetailModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.remove('active');
-            }
-        });
-
-        // Student Modal JavaScript Data & Logic
+        // Student Modal Data & Logic
         const studentDataMap = {
             pratik: {
                 name: "Pratik Singh",
@@ -568,10 +478,114 @@
             document.getElementById('studentDetailModal').classList.remove('active');
         });
 
-        document.getElementById('studentDetailModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.remove('active');
+        // Quick Stats Record Data & Logic
+        const statDataMap = {
+            jobs: {
+                icon: "fa-solid fa-briefcase",
+                iconColor: "#3b82f6",
+                title: "500+ Active Job Posts",
+                sub: "Live job & internship opportunities for MCA",
+                content: `
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;">
+                        <span>Full-Time Software Roles:</span> <strong style="color:#60a5fa;">320 Posts</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;">
+                        <span>Paid Internships:</span> <strong style="color:#60a5fa;">180 Posts</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;">
+                        <span>Average Package (Full Time):</span> <strong style="color:#10b981;">₹6.2 LPA</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between;">
+                        <span>Highest Package Off-Campus:</span> <strong style="color:#f59e0b;">₹18 LPA</strong>
+                    </div>
+                `
+            },
+            companies: {
+                icon: "fa-solid fa-building-user",
+                iconColor: "#10b981",
+                title: "200+ Recruiting Partners",
+                sub: "Top IT Companies & Tech Startups",
+                content: `
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;">
+                        <span>Tier-1 Tech Giants (TCS, Infosys, etc.):</span> <strong style="color:#10b981;">45 Companies</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;">
+                        <span>High-Growth Product Startups:</span> <strong style="color:#10b981;">110 Companies</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;">
+                        <span>Core Tech MNCs:</span> <strong style="color:#10b981;">45 Companies</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between;">
+                        <span>Active Hiring Drives This Month:</span> <strong style="color:#3b82f6;">12 Drives</strong>
+                    </div>
+                `
+            },
+            students: {
+                icon: "fa-solid fa-users",
+                iconColor: "#a855f7",
+                title: "5000+ Registered MCA Scholars",
+                sub: "Pan-India MCA talent network",
+                content: `
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;">
+                        <span>Active Job Seekers:</span> <strong style="color:#c084fc;">3,800 Students</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;">
+                        <span>Currently Doing Internships:</span> <strong style="color:#c084fc;">850 Students</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;">
+                        <span>Successfully Placed Batch:</span> <strong style="color:#10b981;">2,450+ Students</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between;">
+                        <span>Top Tech Stacks:</span> <span style="color:#94a3b8; font-size:12px;">Java, Full Stack, Python, AWS</span>
+                    </div>
+                `
+            },
+            placement: {
+                icon: "fa-solid fa-trophy",
+                iconColor: "#f59e0b",
+                title: "95% Successful Placement Rate",
+                sub: "Highest selection success in MCA domain",
+                content: `
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;">
+                        <span>Placed Within 6 Months:</span> <strong style="color:#f59e0b;">95% Scholars</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;">
+                        <span>Average Interview Shortlists:</span> <strong style="color:#f59e0b;">3 Calls/Student</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;">
+                        <span>Student Satisfaction Score:</span> <strong style="color:#10b981;">4.8 / 5.0</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between;">
+                        <span>Verified Recruiter Rating:</span> <strong style="color:#3b82f6;">100% Trust Verified</strong>
+                    </div>
+                `
             }
+        };
+
+        function openStatModal(statKey) {
+            const data = statDataMap[statKey];
+            if (!data) return;
+
+            document.getElementById('statIcon').className = data.icon;
+            document.getElementById('statIcon').style.color = data.iconColor;
+            document.getElementById('statTitle').innerText = data.title;
+            document.getElementById('statSub').innerText = data.sub;
+            document.getElementById('statContent').innerHTML = data.content;
+
+            document.getElementById('statDetailModal').classList.add('active');
+        }
+
+        document.getElementById('closeStatModalBtn').addEventListener('click', function() {
+            document.getElementById('statDetailModal').classList.remove('active');
+        });
+
+        // Close Modals on Overlay Click
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
         });
     </script>
 </body>
