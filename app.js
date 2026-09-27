@@ -1,196 +1,221 @@
-// Sample Job Listings Data
-const jobData = [
-  {
-    id: 1,
-    title: "System Engineer",
-    company: "TCS",
-    location: "Bangalore",
-    type: "Internship",
-    category: "Software",
-    posted: "2 days ago",
-    stipend: "₹30,000 / month",
-    skills: ["Java", "SQL", "Git"]
-  },
-  {
-    id: 2,
-    title: "Full Stack Developer",
-    company: "Infosys",
-    location: "Hyderabad",
-    type: "Full-Time",
-    category: "Software",
-    posted: "1 day ago",
-    stipend: "6.5 LPA",
-    skills: ["React", "Node.js", "MongoDB"]
-  },
-  {
-    id: 3,
-    title: "Cloud Associate",
-    company: "Wipro",
-    location: "Pune",
-    type: "Full-Time",
-    category: "Cloud",
-    posted: "3 days ago",
-    stipend: "5.0 LPA",
-    skills: ["AWS", "Linux", "Python"]
-  },
-  {
-    id: 4,
-    title: "Data Analyst Intern",
-    company: "Accenture",
-    location: "Gurugram",
-    type: "Internship",
-    category: "Data",
-    posted: "Just now",
-    stipend: "₹25,000 / month",
-    skills: ["Python", "SQL", "PowerBI"]
-  },
-  {
-    id: 5,
-    title: "Backend Engineer",
-    company: "Cognizant",
-    location: "Chennai",
-    type: "Full-Time",
-    category: "Software",
-    posted: "4 days ago",
-    stipend: "5.5 LPA",
-    skills: ["Java", "Spring Boot", "MySQL"]
-  }
+// Initial Mock Jobs Data
+const jobsData = [
+    {
+        id: 1,
+        title: "System Engineer",
+        company: "TCS",
+        location: "Bangalore",
+        type: "Full Time",
+        posted: "2 days ago",
+        salary: "₹6.5 LPA",
+        rating: "4.2",
+        tags: ["Java", "SQL", "Testing"]
+    },
+    {
+        id: 2,
+        title: "SDE Intern",
+        company: "Infosys",
+        location: "Hyderabad",
+        type: "Internship",
+        posted: "1 day ago",
+        salary: "₹25K/month",
+        rating: "4.0",
+        tags: ["Python", "Django", "REST API"]
+    },
+    {
+        id: 3,
+        title: "Trainee Engineer",
+        company: "Wipro",
+        location: "Pune",
+        type: "Full Time",
+        posted: "3 days ago",
+        salary: "₹5.5 LPA",
+        rating: "4.1",
+        tags: ["C++", "Linux", "DevOps"]
+    },
+    {
+        id: 4,
+        title: "App Dev Associate",
+        company: "Accenture",
+        location: "Gurgaon",
+        type: "Full Time",
+        posted: "Today",
+        salary: "₹7.0 LPA",
+        rating: "4.0",
+        tags: ["React", "Node.js", "MongoDB"]
+    },
+    {
+        id: 5,
+        title: "Graduate Trainee",
+        company: "HCL",
+        location: "Noida",
+        type: "Full Time",
+        posted: "4 days ago",
+        salary: "₹5.0 LPA",
+        rating: "3.9",
+        tags: ["Java", "Spring Boot", "SQL"]
+    },
+    {
+        id: 6,
+        title: "Cloud Engineer Intern",
+        company: "TechMahindra",
+        location: "Chennai",
+        type: "Internship",
+        posted: "Today",
+        salary: "₹20K/month",
+        rating: "4.3",
+        tags: ["AWS", "Python", "Docker"]
+    }
 ];
 
-let selectedCategory = "ALL";
-let currentApplyTarget = null;
+// State object to track student applications by Job ID
+const applicationsMap = {};
 
 // DOM Elements
-const jobsGrid = document.getElementById("jobs-grid");
-const searchInput = document.getElementById("search-input");
-const typeFilter = document.getElementById("type-filter");
-const searchBtn = document.getElementById("search-btn");
-const categoryPills = document.querySelectorAll(".pill-btn");
+const jobsGrid = document.getElementById('jobsGrid');
+const typeFilter = document.getElementById('typeFilter');
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const filterTabs = document.querySelectorAll('.tab-btn');
 
-const applyModal = document.getElementById("apply-modal");
-const closeModalBtn = document.getElementById("close-modal-btn");
-const applyForm = document.getElementById("apply-form");
-const modalCompany = document.getElementById("modal-company");
+// Modal Elements
+const applicationModal = document.getElementById('applicationModal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const cancelModalBtn = document.getElementById('cancelModalBtn');
+const applyForm = document.getElementById('applyForm');
+const modalJobTitle = document.getElementById('modalJobTitle');
+const modalCompanyName = document.getElementById('modalCompanyName');
+const modalJobId = document.getElementById('modalJobId');
 
-// Render Job Cards
-function renderJobs() {
-  const query = searchInput.value.toLowerCase().trim();
-  const selectedType = typeFilter.value;
+// Render Jobs Function
+function renderJobs(filterType = "ALL", searchQuery = "") {
+    jobsGrid.innerHTML = "";
 
-  const filteredJobs = jobData.filter(job => {
-    const matchesSearch = job.title.toLowerCase().includes(query) || 
-                          job.company.toLowerCase().includes(query) || 
-                          job.skills.some(s => s.toLowerCase().includes(query));
+    const filtered = jobsData.filter(job => {
+        const matchesType = (filterType === "ALL") || (job.type.toLowerCase() === filterType.toLowerCase());
+        const matchesSearch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                              job.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                              job.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+        return matchesType && matchesSearch;
+    });
+
+    if (filtered.length === 0) {
+        jobsGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px;">No positions found matching your criteria.</p>`;
+        return;
+    }
+
+    filtered.forEach(job => {
+        const card = document.createElement('div');
+        card.className = 'job-card';
+
+        const appliedData = applicationsMap[job.id];
+
+        let actionAreaHTML = `
+            <div class="job-footer">
+                <span class="salary">${job.salary}</span>
+                <button class="btn-apply" onclick="openApplyModal(${job.id})">Apply</button>
+            </div>
+        `;
+
+        // If Student has already applied, replace Apply Button with Applicant Name and Details
+        if (appliedData) {
+            actionAreaHTML = `
+                <div class="applied-box">
+                    <h5><i class="fa-solid fa-circle-check"></i> Applied Successfully</h5>
+                    <p><strong>Name:</strong> ${appliedData.name}</p>
+                    <p><strong>Email:</strong> ${appliedData.email}</p>
+                    <p><strong>GitHub:</strong> <a href="${appliedData.github}" target="_blank" style="color: #60a5fa;">${appliedData.github}</a></p>
+                </div>
+            `;
+        }
+
+        card.innerHTML = `
+            <div>
+                <div class="job-header">
+                    <div class="company-badge">
+                        <div class="company-icon"><i class="fa-solid fa-building"></i></div>
+                        <div>
+                            <span class="company-name">${job.company}</span>
+                            <span style="font-size: 11px; color: #f59e0b; margin-left: 6px;">★ ${job.rating}</span>
+                        </div>
+                    </div>
+                    <span class="job-type-tag">${job.type}</span>
+                </div>
+                <h3 class="job-title">${job.title}</h3>
+                <div class="job-details">
+                    <span><i class="fa-solid fa-location-dot"></i> ${job.location}</span>
+                    <span><i class="fa-regular fa-clock"></i> ${job.posted}</span>
+                </div>
+                <div class="job-tags">
+                    ${job.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                </div>
+            </div>
+            ${actionAreaHTML}
+        `;
+
+        jobsGrid.appendChild(card);
+    });
+}
+
+// Open Application Modal
+window.openApplyModal = function(jobId) {
+    const job = jobsData.find(j => j.id === jobId);
+    if (!job) return;
+
+    modalJobId.value = job.id;
+    modalJobTitle.innerText = `Apply for ${job.title}`;
+    modalCompanyName.innerText = job.company;
+    applicationModal.classList.add('active');
+};
+
+// Close Modal Function
+function closeModal() {
+    applicationModal.classList.remove('active');
+    applyForm.reset();
+}
+
+// Event Listeners
+closeModalBtn.addEventListener('click', closeModal);
+cancelModalBtn.addEventListener('click', closeModal);
+
+// Handle Application Form Submission
+applyForm.addEventListener('submit', (e) => {
+    e.preventDefault();
     
-    const matchesType = selectedType === "ALL" || job.type === selectedType;
-    const matchesCategory = selectedCategory === "ALL" || job.category === selectedCategory;
+    const jobId = modalJobId.value;
+    const name = document.getElementById('applicantName').value;
+    const email = document.getElementById('applicantEmail').value;
+    const github = document.getElementById('applicantGithub').value;
 
-    return matchesSearch && matchesType && matchesCategory;
-  });
+    // Save Application Details
+    applicationsMap[jobId] = { name, email, github };
 
-  if (filteredJobs.length === 0) {
-    jobsGrid.innerHTML = `
-      <div class="col-span-full text-center py-12 text-slate-500 bg-slate-900/30 rounded-2xl border border-slate-800">
-        <i class="fa-solid fa-magnifying-glass text-3xl mb-3 text-slate-600"></i>
-        <p class="font-medium">No job postings found matching your criteria.</p>
-      </div>
-    `;
-    return;
-  }
+    closeModal();
+    renderJobs(getActiveFilter(), searchInput.value);
+});
 
-  jobsGrid.innerHTML = filteredJobs.map(job => `
-    <div class="bg-slate-900/90 border border-slate-800 hover:border-slate-700/80 rounded-2xl p-6 transition duration-300 hover:shadow-xl hover:shadow-indigo-500/5 group flex flex-col justify-between">
-      <div>
-        <div class="flex items-center justify-between mb-4">
-          <span class="text-xs font-semibold px-3 py-1 rounded-full border ${
-            job.type === 'Internship' 
-              ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' 
-              : 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'
-          }">
-            ${job.type}
-          </span>
-          <span class="text-[11px] font-medium text-slate-500">${job.posted}</span>
-        </div>
-
-        <h3 class="text-lg font-bold text-white group-hover:text-indigo-400 transition">${job.title}</h3>
-        
-        <div class="mt-3 space-y-2 text-xs text-slate-400">
-          <p class="flex items-center gap-2">
-            <i class="fa-solid fa-building text-slate-500 w-4"></i> ${job.company}
-          </p>
-          <p class="flex items-center gap-2">
-            <i class="fa-solid fa-location-dot text-slate-500 w-4"></i> ${job.location}
-          </p>
-          <p class="flex items-center gap-2">
-            <i class="fa-solid fa-wallet text-slate-500 w-4"></i> ${job.stipend}
-          </p>
-        </div>
-
-        <div class="flex flex-wrap gap-1.5 mt-4">
-          ${job.skills.map(s => `<span class="bg-slate-800 text-slate-400 text-[10px] font-semibold px-2.5 py-1 rounded-lg">${s}</span>`).join('')}
-        </div>
-      </div>
-
-      <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center gap-2">
-        <button onclick="openModal('${job.company}', '${job.title}')" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold py-2.5 rounded-xl transition shadow-md shadow-indigo-600/20">
-          Apply Now
-        </button>
-      </div>
-    </div>
-  `).join('');
+// Helper for Active Filter
+function getActiveFilter() {
+    const activeTab = document.querySelector('.tab-btn.active');
+    return activeTab ? activeTab.getAttribute('data-filter') : "ALL";
 }
 
-// Category Pills Event
-categoryPills.forEach(pill => {
-  pill.addEventListener("click", () => {
-    categoryPills.forEach(p => p.classList.remove("active"));
-    pill.classList.add("active");
-    selectedCategory = pill.dataset.cat;
-    renderJobs();
-  });
+// Search and Filter Events
+searchBtn.addEventListener('click', () => {
+    renderJobs(typeFilter.value, searchInput.value);
 });
 
-// Search Actions
-searchBtn.addEventListener("click", renderJobs);
-searchInput.addEventListener("keyup", (e) => {
-  if (e.key === "Enter") renderJobs();
-});
-typeFilter.addEventListener("change", renderJobs);
-
-// Modal Controllers
-function openModal(company, title) {
-  modalCompany.textContent = `${title} at ${company}`;
-  applyModal.classList.remove("opacity-0", "pointer-events-none");
-  applyModal.querySelector("div").classList.remove("scale-95");
-}
-
-closeModalBtn.addEventListener("click", () => {
-  applyModal.classList.add("opacity-0", "pointer-events-none");
-  applyModal.querySelector("div").classList.add("scale-95");
+typeFilter.addEventListener('change', () => {
+    renderJobs(typeFilter.value, searchInput.value);
 });
 
-// Form Submit Handler
-applyForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  applyModal.classList.add("opacity-0", "pointer-events-none");
-  showToast("Application submitted successfully!", "fa-circle-check");
-  applyForm.reset();
+filterTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        filterTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        renderJobs(tab.getAttribute('data-filter'), searchInput.value);
+    });
 });
 
-// Toast System
-function showToast(msg, icon) {
-  const toast = document.getElementById("toast");
-  const toastMsg = document.getElementById("toast-msg");
-  const toastIcon = document.getElementById("toast-icon");
-
-  toastMsg.textContent = msg;
-  toastIcon.className = `fa-solid ${icon}`;
-
-  toast.classList.remove("opacity-0", "pointer-events-none", "translate-y-[-10px]");
-  setTimeout(() => {
-    toast.classList.add("opacity-0", "pointer-events-none", "translate-y-[-10px]");
-  }, 3000);
-}
-
-// Initial Load
-document.addEventListener("DOMContentLoaded", renderJobs);
+// Initial Render
+renderJobs();
