@@ -28,7 +28,7 @@
                 <li><a href="#companies">Companies</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#" onclick="openCollegePortal()" style="color: #38bdf8; font-weight: 600;"><i class="fa-solid fa-shield-halved"></i> College Portal</a></li>
-                <li><a href="#" onclick="openRecruiterPortal()" style="color: #f59e0b; font-weight: 600;"><i class="fa-solid fa-building-user"></i> HR / Recruiter Login</a></li>
+                <li><a href="#" onclick="openRecruiterLoginModal()" style="color: #a855f7; font-weight: 600;"><i class="fa-solid fa-briefcase"></i> Recruiter Login</a></li>
             </ul>
             <div class="nav-buttons">
                 <button class="btn-login" onclick="openGeneralModal('login')">Login</button>
@@ -78,7 +78,7 @@
         <!-- Quick Stats Banner (Clickable) -->
         <div class="stats-banner">
             <div class="stat-item" onclick="openStatModal('jobs')" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-                <h3>500+</h3>
+                <h3 id="statActiveJobsCount">500+</h3>
                 <p>Active Job Posts</p>
             </div>
             <div class="stat-item" onclick="openStatModal('companies')" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
@@ -342,11 +342,11 @@
                 </ul>
             </div>
             <div>
-                <h4 style="color: #ffffff; font-size: 15px; font-weight: 600; margin-bottom: 16px;">For Students</h4>
+                <h4 style="color: #ffffff; font-size: 15px; font-weight: 600; margin-bottom: 16px;">For Students & HR</h4>
                 <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
                     <li><a href="#" onclick="openGeneralModal('resume')" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Resume Builder</a></li>
-                    <li><a href="#" onclick="openGeneralModal('interview')" style="color: #94a3b8; text-decoration: none; font-size: 13px;">MCA Interview Prep</a></li>
                     <li><a href="#" onclick="openStudentDashboardModal()" style="color: #38bdf8; text-decoration: none; font-size: 13px; font-weight: 600;"><i class="fa-solid fa-bell"></i> My Applications & Status</a></li>
+                    <li><a href="#" onclick="openRecruiterLoginModal()" style="color: #c084fc; text-decoration: none; font-size: 13px; font-weight: 600;"><i class="fa-solid fa-briefcase"></i> Recruiter Portal Login</a></li>
                 </ul>
             </div>
             <div>
@@ -424,70 +424,107 @@
         </div>
     </div>
 
-    <!-- Recruiter Dashboard Modal (HR Login & Post Roles) -->
-    <div class="modal-overlay" id="recruiterPortalModal">
-        <div class="modal-box" style="max-width: 800px; width: 95%;">
-            <button class="close-modal" onclick="closeRecruiterPortal()">&times;</button>
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-                <div style="background: #f59e0b; color: #fff; width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
-                    <i class="fa-solid fa-building-user"></i>
+    <!-- Recruiter Login Modal -->
+    <div class="modal-overlay" id="recruiterLoginModal">
+        <div class="modal-box" style="max-width: 440px;">
+            <button class="close-modal" onclick="closeRecruiterLoginModal()">&times;</button>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="background: #7c3aed; color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; margin: 0 auto 12px;">
+                    <i class="fa-solid fa-briefcase"></i>
+                </div>
+                <h3 style="color: #fff; font-size: 20px; margin: 0;">Recruiter Portal Login</h3>
+                <p style="color: #94a3b8; font-size: 12px; margin-top: 4px;">Post roles & view verified college students</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div>
+                    <label style="font-size: 12px; color: #94a3b8;">Company Work Email</label>
+                    <input type="email" id="hrLoginEmail" placeholder="hr@tcs.com / hr@infosys.com" style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 10px; border-radius: 6px; color: #fff; margin-top: 4px; font-size: 13px;">
                 </div>
                 <div>
-                    <h3 style="color: #ffffff; font-size: 20px; font-weight: 700; margin: 0;">Recruiter / HR Portal</h3>
-                    <p style="color: #94a3b8; font-size: 13px; margin: 2px 0 0 0;">Post new roles & view college-verified eligible MCA students.</p>
+                    <label style="font-size: 12px; color: #94a3b8;">Password</label>
+                    <input type="password" id="hrLoginPassword" placeholder="••••••••" style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 10px; border-radius: 6px; color: #fff; margin-top: 4px; font-size: 13px;">
                 </div>
+                <button onclick="handleRecruiterLogin()" style="background: #7c3aed; color: #fff; border: none; padding: 11px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; margin-top: 6px; transition: background 0.2s;" onmouseover="this.style.background='#6d28d9'" onmouseout="this.style.background='#7c3aed'">Login as Recruiter</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recruiter Dashboard Modal -->
+    <div class="modal-overlay" id="recruiterDashboardModal">
+        <div class="modal-box" style="max-width: 850px; width: 95%;">
+            <button class="close-modal" onclick="closeRecruiterDashboard()">&times;</button>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid #334155; padding-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="background: #7c3aed; color: #fff; width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <div>
+                        <h3 id="hrCompanyNameTitle" style="color: #ffffff; font-size: 20px; font-weight: 700; margin: 0;">Recruiter Dashboard</h3>
+                        <p style="color: #94a3b8; font-size: 13px; margin: 2px 0 0 0;">Post new roles and view college-verified student applications</p>
+                    </div>
+                </div>
+                <button onclick="openPostJobModal()" style="background: #10b981; color: #fff; border: none; padding: 9px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-plus"></i> Post New Job / Role
+                </button>
             </div>
 
-            <!-- Post New Job Form Box -->
-            <div style="background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 16px; margin-bottom: 20px;">
-                <h4 style="color: #f8fafc; font-size: 14px; font-weight: 600; margin-bottom: 12px;"><i class="fa-solid fa-plus-circle" style="color: #f59e0b;"></i> Post New Job / Internship Role</h4>
-                <form id="postJobForm" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+            <h4 style="color: #f8fafc; font-size: 15px; font-weight: 600; margin-bottom: 12px;"><i class="fa-solid fa-circle-check" style="color: #10b981;"></i> College Verified Students List</h4>
+            <div style="background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 16px; max-height: 380px; overflow-y: auto;" id="hrVerifiedStudentsList">
+                <!-- Rendered dynamically -->
+            </div>
+            <div style="margin-top: 16px; text-align: right;">
+                <button onclick="closeRecruiterDashboard()" style="background: #334155; color: #ffffff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px;">Close Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Job Modal (For HR) -->
+    <div class="modal-overlay" id="postJobModal">
+        <div class="modal-box" style="max-width: 500px;">
+            <button class="close-modal" onclick="document.getElementById('postJobModal').classList.remove('active')">&times;</button>
+            <h3 style="color: #fff; font-size: 20px; margin-bottom: 4px;">Post a New Job / Internship</h3>
+            <p style="color: #94a3b8; font-size: 12px; margin-bottom: 16px;">This role will be instantly published to the portal</p>
+            <form id="postJobForm" onsubmit="handlePostNewJob(event)">
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label style="font-size: 12px; color: #94a3b8;">Job Title *</label>
+                    <input type="text" id="newJobTitle" placeholder="e.g. Full Stack Developer" required style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 9px; border-radius: 6px; color: #fff; margin-top: 4px; font-size: 13px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label style="font-size: 12px; color: #94a3b8;">Company Name *</label>
+                    <input type="text" id="newJobCompany" placeholder="e.g. TCS" required style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 9px; border-radius: 6px; color: #fff; margin-top: 4px; font-size: 13px;">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
                     <div>
-                        <label style="font-size: 11px; color: #94a3b8;">Job Title *</label>
-                        <input type="text" id="hrJobTitle" placeholder="e.g. Full Stack Developer" required style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 8px; border-radius: 6px; color: #fff; font-size: 12px; margin-top: 2px;">
-                    </div>
-                    <div>
-                        <label style="font-size: 11px; color: #94a3b8;">Company Name *</label>
-                        <input type="text" id="hrCompanyName" placeholder="e.g. TCS / Google" required style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 8px; border-radius: 6px; color: #fff; font-size: 12px; margin-top: 2px;">
-                    </div>
-                    <div>
-                        <label style="font-size: 11px; color: #94a3b8;">Job Type *</label>
-                        <select id="hrJobType" style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 8px; border-radius: 6px; color: #fff; font-size: 12px; margin-top: 2px;">
-                            <option value="Full Time">Full Time</option>
+                        <label style="font-size: 12px; color: #94a3b8;">Job Type *</label>
+                        <select id="newJobType" style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 9px; border-radius: 6px; color: #fff; margin-top: 4px; font-size: 13px;">
+                            <option value="Full Time">Full-Time</option>
                             <option value="Internship">Internship</option>
                         </select>
                     </div>
                     <div>
-                        <label style="font-size: 11px; color: #94a3b8;">Package Number (LPA) *</label>
-                        <input type="number" step="0.1" id="hrPackageNum" placeholder="e.g. 7.5" required style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 8px; border-radius: 6px; color: #fff; font-size: 12px; margin-top: 2px;">
+                        <label style="font-size: 12px; color: #94a3b8;">Package Number (LPA) *</label>
+                        <input type="number" step="0.1" id="newJobPkgNum" placeholder="6.5" required style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 9px; border-radius: 6px; color: #fff; margin-top: 4px; font-size: 13px;">
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+                    <div>
+                        <label style="font-size: 12px; color: #94a3b8;">Package Display Text *</label>
+                        <input type="text" id="newJobPkgText" placeholder="₹6.5 LPA" required style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 9px; border-radius: 6px; color: #fff; margin-top: 4px; font-size: 13px;">
                     </div>
                     <div>
-                        <label style="font-size: 11px; color: #94a3b8;">Package Text *</label>
-                        <input type="text" id="hrPackageText" placeholder="e.g. ₹7.5 LPA" required style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 8px; border-radius: 6px; color: #fff; font-size: 12px; margin-top: 2px;">
+                        <label style="font-size: 12px; color: #94a3b8;">Location *</label>
+                        <input type="text" id="newJobLocation" placeholder="Bangalore / Remote" required style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 9px; border-radius: 6px; color: #fff; margin-top: 4px; font-size: 13px;">
                     </div>
-                    <div>
-                        <label style="font-size: 11px; color: #94a3b8;">Location *</label>
-                        <input type="text" id="hrLocation" placeholder="e.g. Bangalore" required style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 8px; border-radius: 6px; color: #fff; font-size: 12px; margin-top: 2px;">
-                    </div>
-                    <div style="grid-column: 1/-1;">
-                        <label style="font-size: 11px; color: #94a3b8;">Job Description *</label>
-                        <input type="text" id="hrJobDesc" placeholder="Brief job description for candidates..." required style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 8px; border-radius: 6px; color: #fff; font-size: 12px; margin-top: 2px;">
-                    </div>
-                    <div style="grid-column: 1/-1; text-align: right; margin-top: 4px;">
-                        <button type="submit" style="background: #f59e0b; color: #1e1b4b; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 12px;"><i class="fa-solid fa-paper-plane"></i> Publish Job Role</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- College Verified Students List for HR -->
-            <div style="background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 16px; max-height: 280px; overflow-y: auto;">
-                <h4 style="color: #f8fafc; font-size: 14px; font-weight: 600; margin-bottom: 12px;"><i class="fa-solid fa-circle-check" style="color: #10b981;"></i> College Verified Students (Ready for Hire)</h4>
-                <div id="verifiedStudentsListHR" style="display: flex; flex-direction: column; gap: 10px;"></div>
-            </div>
-
-            <div style="margin-top: 16px; text-align: right;">
-                <button onclick="closeRecruiterPortal()" style="background: #334155; color: #ffffff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px;">Close HR Portal</button>
-            </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label style="font-size: 12px; color: #94a3b8;">Role Description *</label>
+                    <textarea id="newJobDesc" placeholder="Enter key responsibilities and requirements..." rows="3" required style="width: 100%; background: #1e293b; border: 1px solid #334155; padding: 9px; border-radius: 6px; color: #fff; margin-top: 4px; font-size: 13px;"></textarea>
+                </div>
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button type="button" onclick="document.getElementById('postJobModal').classList.remove('active')" style="background: #334155; color: #fff; border: none; padding: 9px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px;">Cancel</button>
+                    <button type="submit" style="background: #10b981; color: #fff; border: none; padding: 9px 18px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px;">Publish Job</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -562,12 +599,12 @@
         </div>
     </div>
 
-    <!-- Integrated Job & Filter Logic Script -->
+    <!-- Integrated Job & Recruiter Logic Script -->
     <script>
-        // Sample Jobs Database stored in localStorage if available
+        // Sample Jobs Database with persistent storage integration
         function getStoredJobs() {
             try {
-                const data = localStorage.getItem('campushire_jobs_list');
+                const data = localStorage.getItem('campushire_jobs');
                 if (data) return JSON.parse(data);
             } catch(e) {}
             return [
@@ -581,12 +618,14 @@
         }
 
         function saveStoredJobs(jobs) {
-            try { localStorage.setItem('campushire_jobs_list', JSON.stringify(jobs)); } catch(e) {}
+            try { localStorage.setItem('campushire_jobs', JSON.stringify(jobs)); } catch(e) {}
         }
 
         function renderJobs(jobsToRender) {
             const grid = document.getElementById('jobsGrid');
             if (!grid) return;
+
+            document.getElementById('statActiveJobsCount').innerText = jobsToRender.length + '+';
 
             if (jobsToRender.length === 0) {
                 grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #94a3b8;"><i class="fa-solid fa-folder-open" style="font-size: 32px; margin-bottom: 10px; display: block;"></i>No matching jobs found. Try resetting filters.</div>`;
@@ -625,9 +664,9 @@
             const typeFilterVal = document.getElementById('typeFilter').value;
             const companyFilterVal = document.getElementById('advCompanyFilter').value;
             const packageFilterVal = document.getElementById('advPackageFilter').value;
-            const currentJobs = getStoredJobs();
 
-            const filtered = currentJobs.filter(job => {
+            const allJobs = getStoredJobs();
+            const filtered = allJobs.filter(job => {
                 const matchesSearch = job.title.toLowerCase().includes(searchTerm) || job.company.toLowerCase().includes(searchTerm) || job.desc.toLowerCase().includes(searchTerm);
                 const matchesType = (typeFilterVal === 'ALL' || job.type === typeFilterVal);
                 const matchesCompany = (companyFilterVal === 'ALL' || job.company === companyFilterVal);
@@ -694,7 +733,6 @@
             document.getElementById('applicationModal').classList.remove('active');
         });
 
-        // Initial load
         window.addEventListener('DOMContentLoaded', () => {
             renderJobs(getStoredJobs());
         });
@@ -760,13 +798,6 @@
                 title: "MCA Resume Builder",
                 sub: "ATS-friendly tech resume generator",
                 content: `<p>Build professional tech resumes optimized for software engineering and full-stack developer roles with pre-formatted MCA templates.</p>`
-            },
-            interview: {
-                icon: "fa-solid fa-chalkboard-user",
-                color: "#f59e0b",
-                title: "MCA Interview Preparation",
-                sub: "DSA, DBMS & System Design",
-                content: `<p>Access curated question banks, mock tests, and coding interview guides specifically designed for MCA placements in top MNCs.</p>`
             }
         };
 
@@ -812,7 +843,7 @@
 
         // Quick Stats Record Data & Logic
         const statDataMap = {
-            jobs: { icon: "fa-solid fa-briefcase", iconColor: "#3b82f6", title: "500+ Active Job Posts", sub: "Live job & internship opportunities for MCA", content: `<div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;"><span>Full-Time Software Roles:</span> <strong style="color:#60a5fa;">320 Posts</strong></div><div style="display:flex; justify-content:space-between;"><span>Paid Internships:</span> <strong style="color:#60a5fa;">180 Posts</strong></div>` },
+            jobs: { icon: "fa-solid fa-briefcase", iconColor: "#3b82f6", title: "Active Job Posts", sub: "Live job & internship opportunities for MCA", content: `<div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;"><span>Full-Time Software Roles:</span> <strong style="color:#60a5fa;">Active Posts</strong></div><div style="display:flex; justify-content:space-between;"><span>Paid Internships:</span> <strong style="color:#60a5fa;">Available</strong></div>` },
             companies: { icon: "fa-solid fa-building-user", iconColor: "#10b981", title: "200+ Recruiting Partners", sub: "Top IT Companies & Tech Startups", content: `<div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;"><span>Tier-1 Tech Giants:</span> <strong style="color:#10b981;">45 Companies</strong></div><div style="display:flex; justify-content:space-between;"><span>Product Startups:</span> <strong style="color:#10b981;">110 Companies</strong></div>` },
             students: { icon: "fa-solid fa-users", iconColor: "#a855f7", title: "5000+ Registered MCA Scholars", sub: "Pan-India MCA talent network", content: `<div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;"><span>Active Job Seekers:</span> <strong style="color:#c084fc;">3,800 Students</strong></div><div style="display:flex; justify-content:space-between;"><span>Placed Batch:</span> <strong style="color:#10b981;">2,450+ Students</strong></div>` },
             placement: { icon: "fa-solid fa-trophy", iconColor: "#f59e0b", title: "95% Successful Placement Rate", sub: "Highest selection success in MCA domain", content: `<div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #1e293b; padding-bottom:6px;"><span>Placed Within 6 Months:</span> <strong style="color:#f59e0b;">95% Scholars</strong></div><div style="display:flex; justify-content:space-between;"><span>Satisfaction Score:</span> <strong style="color:#10b981;">4.8 / 5.0</strong></div>` }
@@ -914,78 +945,110 @@
             }
         }
 
-        // Recruiter / HR Portal Logic
-        function openRecruiterPortal() {
-            renderRecruiterPortalContent();
-            document.getElementById('recruiterPortalModal').classList.add('active');
+        // --- Recruiter Portal Functions ---
+        let currentLoggedInHRCompany = "TCS";
+
+        function openRecruiterLoginModal() {
+            document.getElementById('recruiterLoginModal').classList.add('active');
         }
 
-        function closeRecruiterPortal() {
-            document.getElementById('recruiterPortalModal').classList.remove('active');
+        function closeRecruiterLoginModal() {
+            document.getElementById('recruiterLoginModal').classList.remove('active');
         }
 
-        function renderRecruiterPortalContent() {
-            const apps = getStoredApplications();
-            const verifiedApps = apps.filter(app => app.status === 'Verified');
-            const listDiv = document.getElementById('verifiedStudentsListHR');
-
-            if (verifiedApps.length === 0) {
-                listDiv.innerHTML = `<p style="color:#94a3b8; text-align:center; padding:15px; font-size:13px;">No college-verified students available yet.</p>`;
+        function handleRecruiterLogin() {
+            const email = document.getElementById('hrLoginEmail').value.trim();
+            if (!email) {
+                alert('Please enter your company work email!');
                 return;
             }
+            // Extract company name roughly from email domain or fallback
+            let compName = "TCS";
+            if (email.includes('infosys')) compName = "Infosys";
+            else if (email.includes('wipro')) compName = "Wipro";
+            else if (email.includes('accenture')) compName = "Accenture";
+            else if (email.includes('google')) compName = "Google";
+            else if (email.includes('microsoft')) compName = "Microsoft";
+            else {
+                // use part before @ capitalized
+                const parts = email.split('@');
+                if (parts[0]) compName = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
+            }
 
-            let html = '';
-            verifiedApps.forEach(app => {
-                html += `
-                    <div style="background:#1e293b; border:1px solid #334155; border-radius:8px; padding:12px 14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-                        <div>
-                            <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
-                                <strong style="color:#fff; font-size:14px;"><i class="fa-solid fa-user-graduate" style="color:#10b981;"></i> ${app.studentName}</strong>
-                                <span style="background:rgba(16,185,129,0.15); color:#10b981; font-size:11px; padding:1px 6px; border-radius:4px; font-weight:600;">Verified Candidate</span>
-                            </div>
-                            <p style="color:#94a3b8; font-size:12px; margin:0;">Applied for: <strong style="color:#e2e8f0;">${app.jobTitle} (${app.company})</strong> &bull; Email: ${app.email}</p>
-                        </div>
-                        <div>
-                            <a href="${app.github}" target="_blank" style="background:#334155; color:#fff; text-decoration:none; padding:6px 12px; border-radius:6px; font-size:12px; font-weight:600; display:inline-flex; align-items:center; gap:6px;"><i class="fa-brands fa-github"></i> View Profile</a>
-                        </div>
-                    </div>
-                `;
-            });
-            listDiv.innerHTML = html;
+            currentLoggedInHRCompany = compName;
+            document.getElementById('hrCompanyNameTitle').innerText = `${compName} — Recruiter Dashboard`;
+            closeRecruiterLoginModal();
+            renderRecruiterDashboard();
+            document.getElementById('recruiterDashboardModal').classList.add('active');
         }
 
-        // Handle HR Post Job Form Submit
-        document.addEventListener('submit', function(e) {
-            if (e.target && e.target.id === 'postJobForm') {
-                e.preventDefault();
-                const title = document.getElementById('hrJobTitle').value;
-                const company = document.getElementById('hrCompanyName').value;
-                const type = document.getElementById('hrJobType').value;
-                const packageNum = parseFloat(document.getElementById('hrPackageNum').value);
-                const packageText = document.getElementById('hrPackageText').value;
-                const location = document.getElementById('hrLocation').value;
-                const desc = document.getElementById('hrJobDesc').value;
+        function closeRecruiterDashboard() {
+            document.getElementById('recruiterDashboardModal').classList.remove('active');
+        }
 
-                const currentJobs = getStoredJobs();
-                currentJobs.unshift({
-                    id: Date.now(),
-                    title: title,
-                    company: company,
-                    type: type,
-                    packageNum: packageNum,
-                    packageText: packageText,
-                    location: location,
-                    desc: desc
+        function renderRecruiterDashboard() {
+            const apps = getStoredApplications();
+            // Filter only verified students for this HR company (or show all verified if general)
+            const verifiedApps = apps.filter(app => app.status === 'Verified');
+
+            let listHTML = '';
+            if (verifiedApps.length === 0) {
+                listHTML = `<p style="color:#94a3b8; text-align:center; padding:20px; font-size:13px;">No college-verified students available right now.</p>`;
+            } else {
+                verifiedApps.forEach(app => {
+                    listHTML += `
+                        <div style="background:#1e293b; border:1px solid #334155; border-radius:8px; padding:12px 14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
+                            <div>
+                                <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                                    <strong style="color:#ffffff; font-size:14px;"><i class="fa-solid fa-user-graduate" style="color:#38bdf8;"></i> ${app.studentName}</strong>
+                                    <span style="background:rgba(16,185,129,0.15); color:#10b981; font-size:11px; padding:2px 6px; border-radius:4px; font-weight:600;">Verified Candidate</span>
+                                </div>
+                                <p style="color:#94a3b8; font-size:12px; margin:0;">Applied Role: <strong style="color:#cbd5e1;">${app.company} — ${app.jobTitle}</strong> | Email: ${app.email}</p>
+                            </div>
+                            <div style="display:flex; gap:8px;">
+                                <a href="${app.github.startsWith('http') ? app.github : 'https://' + app.github}" target="_blank" style="background:#334155; color:#fff; text-decoration:none; padding:6px 12px; border-radius:6px; font-size:12px; font-weight:600; display:flex; align-items:center; gap:6px;"><i class="fa-brands fa-github"></i> GitHub</a>
+                                <button onclick="alert('Shortlist notification sent to ${app.studentName}!')" style="background:#7c3aed; color:#fff; border:none; padding:6px 12px; border-radius:6px; font-size:12px; font-weight:600; cursor:pointer;"><i class="fa-solid fa-star"></i> Shortlist</button>
+                            </div>
+                        </div>
+                    `;
                 });
-                saveStoredJobs(currentJobs);
-                renderJobs(currentJobs);
-
-                document.getElementById('postJobForm').reset();
-                alert('Job role successfully posted by Recruiter!');
             }
-        });
+            document.getElementById('hrVerifiedStudentsList').innerHTML = listHTML;
+        }
 
-        // Intercept student application form submit
+        function openPostJobModal() {
+            document.getElementById('newJobCompany').value = currentLoggedInHRCompany;
+            document.getElementById('postJobModal').classList.add('active');
+        }
+
+        function handlePostNewJob(e) {
+            e.preventDefault();
+            const title = document.getElementById('newJobTitle').value;
+            const company = document.getElementById('newJobCompany').value;
+            const type = document.getElementById('newJobType').value;
+            const pkgNum = parseFloat(document.getElementById('newJobPkgNum').value);
+            const pkgText = document.getElementById('newJobPkgText').value;
+            const location = document.getElementById('newJobLocation').value;
+            const desc = document.getElementById('newJobDesc').value;
+
+            const allJobs = getStoredJobs();
+            allJobs.unshift({
+                id: Date.now(),
+                title: title,
+                company: company,
+                type: type,
+                packageNum: pkgNum,
+                packageText: pkgText,
+                location: location,
+                desc: desc
+            });
+            saveStoredJobs(allJobs);
+            document.getElementById('postJobModal').classList.remove('active');
+            renderJobs(getStoredJobs());
+            alert('Job successfully posted and listed live on the portal!');
+        }
+
+        // Intercept application form submit
         document.addEventListener('submit', function(e) {
             if (e.target && e.target.id === 'applyForm') {
                 e.preventDefault();
