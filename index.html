@@ -29,6 +29,7 @@
                 <li><a href="#about">About</a></li>
             </ul>
             <div class="nav-buttons">
+                <button class="btn-login" onclick="openCollegePortal()" style="background: #10b981; border-color: #10b981;"><i class="fa-solid fa-user-shield"></i> College Portal</button>
                 <button class="btn-login" onclick="openGeneralModal('login')">Login</button>
                 <button class="btn-register" onclick="openGeneralModal('register')">Register</button>
             </div>
@@ -366,6 +367,28 @@
         </div>
     </div>
 
+    <!-- College TPO Verification Admin Portal Modal -->
+    <div class="modal-overlay" id="collegePortalModal">
+        <div class="modal-box" style="max-width: 800px; width: 90%;">
+            <button class="close-modal" id="closeCollegeModalBtn">&times;</button>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(16, 185, 129, 0.15); color: #10b981; display: flex; align-items: center; justify-content: center; font-size: 22px;">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div>
+                    <h3 style="color: #ffffff; font-size: 20px; font-weight: 700; margin: 0;">College TPO Verification Portal</h3>
+                    <p style="color: #94a3b8; font-size: 13px; margin-top: 2px;">Review and verify student job applications before sending to companies</p>
+                </div>
+            </div>
+
+            <div style="background: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 16px; max-height: 400px; overflow-y: auto;">
+                <div id="collegeApplicationsList">
+                    <!-- Dynamically populated applicant list -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Student Details Modal -->
     <div class="modal-overlay" id="studentDetailModal">
         <div class="modal-box" style="max-width: 480px;">
@@ -433,6 +456,119 @@
                 jobsSection.scrollIntoView({ behavior: 'smooth' });
             }
         }
+
+        // --- COLLEGE TPO VERIFICATION LOGIC ---
+        function getStoredApplications() {
+            try {
+                const apps = localStorage.getItem('college_applications');
+                if (apps) return JSON.parse(apps);
+            } catch(e) {}
+            // Default sample application so portal is never empty
+            return [
+                {
+                    id: 1,
+                    name: "Pratik Singh",
+                    email: "pratik@gmail.com",
+                    github: "https://github.com/singhpratik9936",
+                    jobTitle: "System Engineer",
+                    company: "TCS",
+                    date: "28 Sept 2026",
+                    status: "Pending Verification"
+                }
+            ];
+        }
+
+        function saveStoredApplications(apps) {
+            localStorage.setItem('college_applications', JSON.stringify(apps));
+        }
+
+        function openCollegePortal() {
+            renderCollegeApplications();
+            document.getElementById('collegePortalModal').classList.add('active');
+        }
+
+        document.getElementById('closeCollegeModalBtn').addEventListener('click', function() {
+            document.getElementById('collegePortalModal').classList.remove('active');
+        });
+
+        function renderCollegeApplications() {
+            const container = document.getElementById('collegeApplicationsList');
+            const apps = getStoredApplications();
+
+            if (apps.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:#94a3b8; padding: 20px;">No student applications submitted yet.</p>`;
+                return;
+            }
+
+            let html = '';
+            apps.forEach((app, index) => {
+                let badgeColor = '#f59e0b'; // pending
+                if (app.status === 'Verified') badgeColor = '#10b981';
+                if (app.status === 'Rejected') badgeColor = '#ef4444';
+
+                html += `
+                    <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+                                <h4 style="color: #ffffff; font-size: 15px; font-weight: 600; margin: 0;">${app.name}</h4>
+                                <span style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 500;">${app.jobTitle} @ ${app.company}</span>
+                            </div>
+                            <p style="color: #94a3b8; font-size: 12px; margin: 2px 0;"><i class="fa-solid fa-envelope"></i> ${app.email} &nbsp;|&nbsp; <a href="${app.github}" target="_blank" style="color: #38bdf8; text-decoration: none;"><i class="fa-brands fa-github"></i> GitHub</a></p>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="background: ${badgeColor}22; color: ${badgeColor}; border: 1px solid ${badgeColor}44; font-size: 11px; padding: 4px 10px; border-radius: 6px; font-weight: 600;">${app.status}</span>
+                            ${app.status === 'Pending Verification' ? `
+                                <button onclick="verifyStudentApp(${index}, 'Verified')" style="background: #10b981; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;"><i class="fa-solid fa-check"></i> Verify</button>
+                                <button onclick="verifyStudentApp(${index}, 'Rejected')" style="background: #ef4444; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;"><i class="fa-solid fa-xmark"></i> Reject</button>
+                            ` : `
+                                <button onclick="verifyStudentApp(${index}, 'Pending Verification')" style="background: #334155; color: #94a3b8; border: none; padding: 6px 10px; border-radius: 6px; font-size: 11px; cursor: pointer;">Reset</button>
+                            `}
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function verifyStudentApp(index, newStatus) {
+            let apps = getStoredApplications();
+            if (apps[index]) {
+                apps[index].status = newStatus;
+                saveStoredApplications(apps);
+                renderCollegeApplications();
+            }
+        }
+
+        // Intercept standard application form submission to record student data for college review
+        document.addEventListener('DOMContentLoaded', function() {
+            const applyForm = document.getElementById('applyForm');
+            if (applyForm) {
+                applyForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const name = document.getElementById('applicantName').value;
+                    const email = document.getElementById('applicantEmail').value;
+                    const github = document.getElementById('applicantGithub').value;
+                    const jobTitle = document.getElementById('modalJobTitle').innerText.replace('Apply for ', '');
+                    const company = document.getElementById('modalCompanyName').innerText;
+
+                    let apps = getStoredApplications();
+                    apps.unshift({
+                        name: name,
+                        email: email,
+                        github: github,
+                        jobTitle: jobTitle,
+                        company: company,
+                        date: new Date().toLocaleDateString(),
+                        status: "Pending Verification"
+                    });
+                    saveStoredApplications(apps);
+
+                    document.getElementById('applicationModal').classList.remove('active');
+                    alert('Application submitted successfully! Data has been sent to College TPO for verification.');
+                    applyForm.reset();
+                });
+            }
+        });
 
         // Feature & Highlights Modal Logic
         const generalDataMap = {
