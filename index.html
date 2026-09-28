@@ -320,7 +320,7 @@
                 <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
                     <li><a href="#" onclick="openGeneralModal('resume')" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Resume Builder</a></li>
                     <li><a href="#" onclick="openGeneralModal('interview')" style="color: #94a3b8; text-decoration: none; font-size: 13px;">MCA Interview Prep</a></li>
-                    <li><a href="#" onclick="openGeneralModal('drives')" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Placement Drive Updates</a></li>
+                    <li><a href="#" onclick="openStudentDashboardModal()" style="color: #38bdf8; text-decoration: none; font-size: 13px; font-weight: 600;"><i class="fa-solid fa-bell"></i> My Applications & Status</a></li>
                 </ul>
             </div>
             <div>
@@ -416,6 +416,42 @@
             <div style="margin-top: 16px; text-align: right;">
                 <button onclick="closeResumePreview()" style="background: #334155; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px;">Close Preview</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Student Live Status Dashboard Modal -->
+    <div class="modal-overlay" id="studentDashboardModal">
+        <div class="modal-box" style="max-width: 650px; width: 95%;">
+            <button class="close-modal" onclick="closeStudentDashboardModal()">&times;</button>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                <div style="background: #10b981; color: #fff; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <div>
+                    <h3 style="color: #fff; font-size: 18px; margin: 0;">Student Live Application Dashboard</h3>
+                    <p style="color: #94a3b8; font-size: 12px; margin: 2px 0 0 0;">Check live verification status of your job applications</p>
+                </div>
+            </div>
+            <div style="background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 16px; max-height: 360px; overflow-y: auto;" id="studentDashboardContent">
+                <!-- Rendered dynamically -->
+            </div>
+            <div style="margin-top: 16px; text-align: right;">
+                <button onclick="closeStudentDashboardModal()" style="background: #334155; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px;">Close Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Status Notification Popup Modal -->
+    <div class="modal-overlay" id="liveNotificationModal">
+        <div class="modal-box" style="max-width: 420px; text-align: center; border-color: #38bdf8;">
+            <div id="notifIconCircle" style="width: 56px; height: 56px; border-radius: 50%; background: rgba(16,185,129,0.2); color: #10b981; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 14px;">
+                <i class="fa-solid fa-circle-check" id="notifIcon"></i>
+            </div>
+            <h3 id="notifTitle" style="color: #fff; font-size: 20px; margin-bottom: 6px;">Application Verified!</h3>
+            <p id="notifMessage" style="color: #94a3b8; font-size: 13px; margin-bottom: 20px; line-height: 1.5;">
+                Your application has been verified by the college coordinator.
+            </p>
+            <button onclick="document.getElementById('liveNotificationModal').classList.remove('active')" style="background: #3b82f6; color: #fff; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; width: 100%;">View Status</button>
         </div>
     </div>
 
@@ -806,7 +842,6 @@
                 const data = localStorage.getItem('campushire_applications');
                 if (data) return JSON.parse(data);
             } catch(e) {}
-            // Default demo application so college portal looks active instantly
             return [
                 { id: 101, studentName: "Pratik Singh", email: "pratik@gmail.com", github: "https://github.com/singhpratik9936", resumeName: "Pratik_Singh_MCA_Resume.pdf", jobTitle: "System Engineer", company: "TCS", status: "Verified", date: "28 Sept 2026" },
                 { id: 102, studentName: "Riya Patel", email: "riya@gmail.com", github: "https://github.com/riyapatel", resumeName: "Riya_Patel_Resume.pdf", jobTitle: "SDE Intern", company: "Infosys", status: "Pending", date: "28 Sept 2026" }
@@ -828,17 +863,84 @@
             document.getElementById('collegePortalModal').classList.remove('active');
         }
 
+        function openStudentDashboardModal() {
+            renderStudentDashboardContent();
+            document.getElementById('studentDashboardModal').classList.add('active');
+        }
+
+        function closeStudentDashboardModal() {
+            document.getElementById('studentDashboardModal').classList.remove('active');
+        }
+
+        function renderStudentDashboardContent() {
+            const apps = getStoredApplications();
+            let html = '';
+            if (apps.length === 0) {
+                html = `<p style="color:#94a3b8; text-align:center; padding:20px; font-size:13px;">You have not submitted any job applications yet.</p>`;
+            } else {
+                apps.forEach(app => {
+                    let badge = '';
+                    if (app.status === 'Verified') {
+                        badge = `<span style="background:rgba(16,185,129,0.15); color:#10b981; border:1px solid #10b981; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600;"><i class="fa-solid fa-check"></i> Verified by College</span>`;
+                    } else if (app.status === 'Rejected') {
+                        badge = `<span style="background:rgba(239,68,68,0.15); color:#ef4444; border:1px solid #ef4444; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600;"><i class="fa-solid fa-xmark"></i> Action Required / Rejected</span>`;
+                    } else {
+                        badge = `<span style="background:rgba(245,158,11,0.15); color:#f59e0b; border:1px solid #f59e0b; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600;"><i class="fa-solid fa-clock"></i> Pending Verification</span>`;
+                    }
+
+                    html += `
+                        <div style="background:#1e293b; border:1px solid #334155; border-radius:8px; padding:14px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                            <div>
+                                <h4 style="color:#fff; font-size:14px; margin:0 0 4px 0;">${app.jobTitle} @ ${app.company}</h4>
+                                <p style="color:#94a3b8; font-size:12px; margin:0;">Applicant: <strong style="color:#cbd5e1;">${app.studentName}</strong> (${app.email})</p>
+                            </div>
+                            <div>${badge}</div>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('studentDashboardContent').innerHTML = html;
+        }
+
+        function triggerLiveNotification(studentName, company, jobTitle, newStatus) {
+            const modal = document.getElementById('liveNotificationModal');
+            const icon = document.getElementById('notifIcon');
+            const circle = document.getElementById('notifIconCircle');
+            const title = document.getElementById('notifTitle');
+            const msg = document.getElementById('notifMessage');
+
+            if (newStatus === 'Verified') {
+                circle.style.background = 'rgba(16,185,129,0.2)';
+                circle.style.color = '#10b981';
+                icon.className = 'fa-solid fa-circle-check';
+                title.innerText = 'Application Verified! 🎉';
+                msg.innerHTML = `Great news ${studentName}! Your application for <strong style="color:#fff;">${jobTitle} at ${company}</strong> has been successfully <span style="color:#10b981; font-weight:600;">Verified</span> by your college coordinator.`;
+            } else if (newStatus === 'Rejected') {
+                circle.style.background = 'rgba(239,68,68,0.2)';
+                circle.style.color = '#ef4444';
+                icon.className = 'fa-solid fa-circle-xmark';
+                title.innerText = 'Application Update Notice';
+                msg.innerHTML = `Hello ${studentName}, your application for <strong style="color:#fff;">${jobTitle} at ${company}</strong> was marked as <span style="color:#ef4444; font-weight:600;">Rejected</span> by college cell. Please check with coordinator.`;
+            } else {
+                circle.style.background = 'rgba(245,158,11,0.2)';
+                circle.style.color = '#f59e0b';
+                icon.className = 'fa-solid fa-clock';
+                title.innerText = 'Status Reset to Pending';
+                msg.innerHTML = `Your application status for ${company} has been reset to pending review.`;
+            }
+
+            modal.classList.add('active');
+        }
+
         function renderCollegePortalContent() {
             const apps = getStoredApplications();
             document.getElementById('totalAppCount').innerText = apps.length;
 
-            // Calculate company-wise count
             const companyCounts = {};
             apps.forEach(app => {
                 companyCounts[app.company] = (companyCounts[app.company] || 0) + 1;
             });
 
-            // Render stats bar
             let statsBarHTML = '';
             if (Object.keys(companyCounts).length === 0) {
                 statsBarHTML = `<div style="background:#1e293b; padding:12px; border-radius:8px; text-align:center; color:#94a3b8; font-size:13px; grid-column: 1/-1;">No applications recorded yet.</div>`;
@@ -854,7 +956,6 @@
             }
             document.getElementById('collegeStatsBar').innerHTML = statsBarHTML;
 
-            // Render applicants list
             let listHTML = '';
             if (apps.length === 0) {
                 listHTML = `<p style="color:#94a3b8; text-align:center; padding:20px; font-size:13px;">No student applications received yet.</p>`;
@@ -898,9 +999,18 @@
         function verifyStudentApp(index, newStatus) {
             const apps = getStoredApplications();
             if (apps[index]) {
+                const studentName = apps[index].studentName;
+                const company = apps[index].company;
+                const jobTitle = apps[index].jobTitle;
+
                 apps[index].status = newStatus;
                 saveStoredApplications(apps);
                 renderCollegePortalContent();
+
+                // Trigger live student notification pop-up
+                if (newStatus === 'Verified' || newStatus === 'Rejected') {
+                    triggerLiveNotification(studentName, company, jobTitle, newStatus);
+                }
             }
         }
 
