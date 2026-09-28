@@ -149,6 +149,34 @@
                 </div>
             </div>
 
+            <!-- Advanced Company-wise & Package Filtering Bar -->
+            <div style="background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 16px; margin-bottom: 30px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+                <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; flex: 1;">
+                    <div style="display: flex; flex-direction: column; gap: 4px; min-width: 180px; flex: 1;">
+                        <label style="color: #94a3b8; font-size: 12px; font-weight: 500;"><i class="fa-solid fa-building"></i> Filter by Company</label>
+                        <select id="companyAdvancedFilter" style="background: #0f172a; border: 1px solid #475569; color: #fff; padding: 10px; border-radius: 8px; font-size: 13px; outline: none;">
+                            <option value="ALL">All Companies</option>
+                            <option value="TCS">TCS</option>
+                            <option value="Infosys">Infosys</option>
+                            <option value="Wipro">Wipro</option>
+                            <option value="Accenture">Accenture</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 4px; min-width: 180px; flex: 1;">
+                        <label style="color: #94a3b8; font-size: 12px; font-weight: 500;"><i class="fa-solid fa-indian-rupee-sign"></i> Filter by Package / Stipend</label>
+                        <select id="packageAdvancedFilter" style="background: #0f172a; border: 1px solid #475569; color: #fff; padding: 10px; border-radius: 8px; font-size: 13px; outline: none;">
+                            <option value="ALL">All Packages</option>
+                            <option value="HIGH">High Package (> 6 LPA / ₹30k+)</option>
+                            <option value="MID">Standard Package (4 - 6 LPA)</option>
+                            <option value="INTERN">Internship Stipends</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: flex-end; gap: 10px;">
+                    <button id="resetAdvancedFilters" style="background: #334155; color: #cbd5e1; border: none; padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#475569'" onmouseout="this.style.background='#334155'"><i class="fa-solid fa-rotate-right"></i> Reset Filters</button>
+                </div>
+            </div>
+
             <!-- Job Cards Container -->
             <div class="jobs-grid" id="jobsGrid">
                 <!-- Dynamic cards rendered via app.js -->
@@ -1007,7 +1035,6 @@
                 saveStoredApplications(apps);
                 renderCollegePortalContent();
 
-                // Trigger live student notification pop-up
                 if (newStatus === 'Verified' || newStatus === 'Rejected') {
                     triggerLiveNotification(studentName, company, jobTitle, newStatus);
                 }
