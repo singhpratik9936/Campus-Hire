@@ -94,47 +94,42 @@
         </div>
     </section>
 
-    <!-- Platform Highlights (Clickable Cards for Fast Delivery, Secure Data, Easy Process, 24/7 Support) -->
+    <!-- Platform Highlights / CampusHire Features (Clickable) -->
     <section class="features-section">
         <div class="section-container">
             <div class="features-grid">
-                
-                <!-- Fast Delivery Card -->
-                <div class="feature-card" onclick="openGeneralModal('fastDelivery')" style="cursor: pointer; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#3b82f6'; this.style.transform='translateY(-3px)';" onmouseout="this.style.borderColor='transparent'; this.style.transform='translateY(0)';">
-                    <i class="fa-solid fa-bolt icon-fast"></i>
+                <!-- Feature 1: Verified Recruiters -->
+                <div class="feature-card" onclick="openGeneralModal('recruiters')" style="cursor: pointer; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#3b82f6'; this.style.transform='translateY(-3px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.transform='translateY(0)';">
+                    <i class="fa-solid fa-shield-check icon-fast" style="color: #3b82f6;"></i>
                     <div>
-                        <h4>Fast Delivery</h4>
-                        <p>Quick & reliable shortlisting</p>
+                        <h4>Verified Recruiters</h4>
+                        <p>100% trusted IT companies & MNCs</p>
                     </div>
                 </div>
-
-                <!-- Secure Data Card -->
-                <div class="feature-card" onclick="openGeneralModal('secureData')" style="cursor: pointer; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#10b981'; this.style.transform='translateY(-3px)';" onmouseout="this.style.borderColor='transparent'; this.style.transform='translateY(0)';">
-                    <i class="fa-solid fa-lock icon-secure"></i>
+                <!-- Feature 2: Top Tech Stacks -->
+                <div class="feature-card" onclick="openGeneralModal('stacks')" style="cursor: pointer; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#10b981'; this.style.transform='translateY(-3px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.transform='translateY(0)';">
+                    <i class="fa-solid fa-code icon-secure" style="color: #10b981;"></i>
                     <div>
-                        <h4>Secure Data</h4>
-                        <p>Your profile stays protected</p>
+                        <h4>Top Tech Stacks</h4>
+                        <p>Java, Full-Stack, Python & Cloud</p>
                     </div>
                 </div>
-
-                <!-- Easy Process Card -->
-                <div class="feature-card" onclick="openGeneralModal('easyProcess')" style="cursor: pointer; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#a855f7'; this.style.transform='translateY(-3px)';" onmouseout="this.style.borderColor='transparent'; this.style.transform='translateY(0)';">
-                    <i class="fa-solid fa-arrow-rotate-left icon-easy"></i>
+                <!-- Feature 3: MCA Interview Prep -->
+                <div class="feature-card" onclick="openGeneralModal('prep')" style="cursor: pointer; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#a855f7'; this.style.transform='translateY(-3px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.transform='translateY(0)';">
+                    <i class="fa-solid fa-laptop-code icon-easy" style="color: #a855f7;"></i>
                     <div>
-                        <h4>Easy Process</h4>
-                        <p>Simple 1-click apply process</p>
+                        <h4>MCA Interview Prep</h4>
+                        <p>DSA, DBMS & mock tests guidance</p>
                     </div>
                 </div>
-
-                <!-- 24/7 Support Card -->
-                <div class="feature-card" onclick="openGeneralModal('support')" style="cursor: pointer; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#f59e0b'; this.style.transform='translateY(-3px)';" onmouseout="this.style.borderColor='transparent'; this.style.transform='translateY(0)';">
-                    <i class="fa-solid fa-headset icon-support"></i>
+                <!-- Feature 4: 1-Click Apply -->
+                <div class="feature-card" onclick="openGeneralModal('apply')" style="cursor: pointer; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#f59e0b'; this.style.transform='translateY(-3px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.transform='translateY(0)';">
+                    <i class="fa-solid fa-paper-plane icon-support" style="color: #f59e0b;"></i>
                     <div>
-                        <h4>24/7 Support</h4>
-                        <p>We're here to help placement seekers</p>
+                        <h4>1-Click Apply</h4>
+                        <p>Instant job submissions for students</p>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -288,10 +283,10 @@
                     Join thousands of MCA students already getting placed. Start your career journey today — completely free.
                 </p>
                 <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-                    <button onclick="openGeneralModal('getStarted')" style="background: #3b82f6; color: #ffffff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;">
+                    <button onclick="openGeneralModal('getStarted')" style="background: #3b82f6; color: #ffffff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px; transition: background 0.2s;" onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
                         <i class="fa-solid fa-paper-plane" style="font-size: 12px;"></i> Get Started Free
                     </button>
-                    <button onclick="scrollToJobs()" style="background: #1e293b; color: #ffffff; border: 1px solid #334155; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px;">
+                    <button onclick="scrollToJobs()" style="background: #1e293b; color: #ffffff; border: 1px solid #334155; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#334155'" onmouseout="this.style.background='#1e293b'">
                         Browse Jobs
                     </button>
                 </div>
@@ -411,7 +406,7 @@
         </div>
     </div>
 
-    <!-- General Feature & Highlights Modal -->
+    <!-- General Feature Modal -->
     <div class="modal-overlay" id="generalDetailModal">
         <div class="modal-box" style="max-width: 500px;">
             <button class="close-modal" id="closeGeneralModalBtn">&times;</button>
@@ -431,7 +426,7 @@
     <script src="app.js"></script>
 
     <script>
-        // Scroll to Jobs section
+        // Scroll to Jobs section when 'Browse Jobs' clicked
         function scrollToJobs() {
             const jobsSection = document.getElementById('jobs');
             if (jobsSection) {
@@ -439,61 +434,61 @@
             }
         }
 
-        // Feature / Highlight / Auth Modal Data & Logic
+        // Feature & Highlights Modal Logic
         const generalDataMap = {
-            fastDelivery: {
-                icon: "fa-solid fa-bolt",
+            recruiters: {
+                icon: "fa-solid fa-shield-check",
                 color: "#3b82f6",
-                title: "Fast Delivery & Shortlisting",
-                sub: "Quick and reliable candidate evaluation",
+                title: "Verified Recruiters",
+                sub: "100% Trusted IT Companies & MNCs",
                 content: `
-                    <p style="margin-bottom:10px;">CampusHire ka Fast Delivery system ensure karta hai:</p>
+                    <p style="margin-bottom:10px;">CampusHire par saari companies aur placement drives thoroughly verified hain:</p>
                     <ul style="padding-left:20px; color:#94a3b8; display:flex; flex-direction:column; gap:6px;">
-                        <li><strong style="color:#fff;">Instant Shortlisting:</strong> Recruiter ke apply karte hi profile automated review hoti hai.</li>
-                        <li><strong style="color:#fff;">Rapid Response:</strong> 48 hours ke andar interview scheduling updates.</li>
-                        <li><strong style="color:#fff;">Zero Delay:</strong> Direct recruiter notifications se fast placement process.</li>
+                        <li><strong style="color:#fff;">Tier-1 MNC Partners:</strong> TCS, Infosys, Wipro, Accenture.</li>
+                        <li><strong style="color:#fff;">Direct HR Contact:</strong> No middle agents, direct shortlisting.</li>
+                        <li><strong style="color:#fff;">Zero Fraud Guarantee:</strong> Authentic stipend and salary packages.</li>
                     </ul>
                 `
             },
-            secureData: {
-                icon: "fa-solid fa-lock",
+            stacks: {
+                icon: "fa-solid fa-code",
                 color: "#10b981",
-                title: "Secure Data & Privacy",
-                sub: "Your profile and resume stay protected",
+                title: "Top Tech Stacks",
+                sub: "In-demand technologies for MCA graduates",
                 content: `
-                    <p style="margin-bottom:10px;">Aapka personal data aur resume poori tarah safe hai:</p>
+                    <p style="margin-bottom:10px;">Industrial tech stacks jo companies demand karti hain:</p>
                     <ul style="padding-left:20px; color:#94a3b8; display:flex; flex-direction:column; gap:6px;">
-                        <li><strong style="color:#fff;">End-to-End Encryption:</strong> Contact details aur GitHub profiles secure rehte hain.</li>
-                        <li><strong style="color:#fff;">Verified Companies Only:</strong> Kewal trusted MNCs aur startups hi aapki profile dekh sakte hain.</li>
-                        <li><strong style="color:#fff;">No Spam Guarantee:</strong> Kisi bhi unauthorized third-party ko data share nahi kiya jata.</li>
+                        <li><strong style="color:#fff;">Backend:</strong> Java Spring Boot, Node.js, Python Django</li>
+                        <li><strong style="color:#fff;">Frontend:</strong> React.js, JavaScript, Tailwind CSS</li>
+                        <li><strong style="color:#fff;">Database & Cloud:</strong> MySQL, PostgreSQL, AWS Basics</li>
                     </ul>
                 `
             },
-            easyProcess: {
-                icon: "fa-solid fa-arrow-rotate-left",
+            prep: {
+                icon: "fa-solid fa-laptop-code",
                 color: "#a855f7",
-                title: "Easy 1-Click Apply Process",
-                sub: "Hassle-free job applications for MCA",
+                title: "MCA Interview Preparation",
+                sub: "Cracking technical rounds & DSA",
                 content: `
-                    <p style="margin-bottom:10px;">Lambe application forms bharne ki zaroorat nahi:</p>
+                    <p style="margin-bottom:10px;">Students ke liye special interview readiness modules:</p>
                     <ul style="padding-left:20px; color:#94a3b8; display:flex; flex-direction:column; gap:6px;">
-                        <li><strong style="color:#fff;">Single Click Apply:</strong> Bas apna Name, Email aur GitHub link daal kar turant apply karein.</li>
-                        <li><strong style="color:#fff;">Saved Profiles:</strong> Ek baar details save hone par baar-baar form nahi bharna padta.</li>
-                        <li><strong style="color:#fff;">Real-Time Tracking:</strong> Apni applications ka status live dashboard par dekhein.</li>
+                        <li><strong style="color:#fff;">Core Subjects:</strong> DBMS, Operating Systems, OOPs concepts.</li>
+                        <li><strong style="color:#fff;">Coding Rounds:</strong> LeetCode easy-to-medium questions practice.</li>
+                        <li><strong style="color:#fff;">Mock HR Interviews:</strong> Live practice sessions with experts.</li>
                     </ul>
                 `
             },
-            support: {
-                icon: "fa-solid fa-headset",
+            apply: {
+                icon: "fa-solid fa-paper-plane",
                 color: "#f59e0b",
-                title: "24/7 Placement Support",
-                sub: "We're here to help placement seekers",
+                title: "1-Click Apply Process",
+                sub: "Fast and simple job application",
                 content: `
-                    <p style="margin-bottom:10px;">Kisi bhi query ya interview help ke liye hamari team 24/7 available hai:</p>
+                    <p style="margin-bottom:10px;">Bina kisi lamba form bhare turant apply karein:</p>
                     <ul style="padding-left:20px; color:#94a3b8; display:flex; flex-direction:column; gap:6px;">
-                        <li><strong style="color:#fff;">Dedicated Helpdesk:</strong> support@campushire.in par turant assistance paayein.</li>
-                        <li><strong style="color:#fff;">Interview Guidance:</strong> Technical round aur HR discussion ke liye expert tips.</li>
-                        <li><strong style="color:#fff;">Resume Review:</strong> MCA resume ko ATS-friendly banane ki free guidance.</li>
+                        <li><strong style="color:#fff;">Saved Profile:</strong> Resume aur GitHub details ek baar save karein.</li>
+                        <li><strong style="color:#fff;">Instant Submission:</strong> Sirf 1 click me application HR tak pahunchegi.</li>
+                        <li><strong style="color:#fff;">Status Tracking:</strong> Real-time application status updates.</li>
                     </ul>
                 `
             },
@@ -651,7 +646,7 @@
             document.getElementById('studentDetailModal').classList.remove('active');
         });
 
-        // Quick Stats Breakdown Modal Data & Logic
+        // Quick Stats Record Data & Logic
         const statDataMap = {
             jobs: {
                 icon: "fa-solid fa-briefcase",
